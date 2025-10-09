@@ -1,0 +1,133 @@
+{% extends 'menu_lateral.html' %}
+{% load static %}
+
+{% block 'title' %}Dashboard de Famílias{% endblock %}
+
+{% block 'main' %}
+<main class="main-content p-6 md:p-10">
+    <div class="w-full max-w-7xl mx-auto space-y-8">
+
+        <h1 class="text-3xl font-bold text-darken text-center">Dashboard de Famílias</h1>
+
+        <section class="bg-white p-6 rounded-lg shadow-lg">
+            <form action="{% url 'familias_dashboard' %}" method="GET" class="flex flex-col md:flex-row gap-4">
+                <input 
+                    type="text" 
+                    name="busca" 
+                    class="flex-grow p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken" 
+                    placeholder="Buscar por nome do responsável ou aluno..."
+                    value="{{ busca_termo|default:'' }}"
+                >
+                <button type="submit" class="px-6 py-3 bg-darken text-white font-bold rounded-lg shadow hover:bg-blue-700 transition-colors duration-300">
+                    Pesquisar
+                </button>
+            </form>
+        </section>
+        
+        {% if not familias_data %}
+            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                <p class="text-gray-600">Nenhuma família encontrada para a busca "{{ busca_termo }}".</p>
+            </div>
+        {% endif %}
+
+        <div class="space-y-6">
+            {% for data in familias_data %}
+            <section class="bg-white p-6 rounded-lg shadow-lg">
+                <div class="flex justify-between items-center border-b pb-4 mb-4">
+                    <a href="{% url 'perfil_familia' data.familia_obj.id %}" class="block hover:bg-gray-50 p-2 -m-2 rounded-lg transition-colors">
+                        <h2 class="text-2xl font-semibold text-darken">
+                            Família #{{ data.familia_obj.id }}
+                        </h2>
+                    </a>
+                    <div class="text-right">
+                        <span class="block text-sm font-medium text-gray-700">Responsável Financeiro:</span>
+                        <span class="text-gray-900">{{ data.familia_obj.responsavel_financeiro.nome|default:"Não definido" }}</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="space-y-4">
+                        <div>
+                            <h3 class="font-semibold text-lg text-gray-800">Responsáveis</h3>
+                            <ul class="list-disc list-inside mt-2 text-gray-700">
+                                {% for responsavel in data.familia_obj.responsaveis.all %}
+                                    <li>
+                                        <a href="{% url 'perfil_responsavel' responsavel.id %}" class="text-blue-600 hover:text-blue-800 hover:underline">
+                                            {{ responsavel.nome }}
+                                        </a>
+                                    </li>
+                                {% empty %}
+                                    <li class="text-gray-500">Nenhum responsável vinculado.</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-lg text-gray-800">Alunos</h3>
+                            <ul class="list-disc list-inside mt-2 text-gray-700">
+                                {% for aluno in data.familia_obj.alunos.all %}
+                                    <li>
+                                        <a href="{% url 'perfil_aluno' aluno.id %}" class="text-blue-600 hover:text-blue-800 hover:underline">
+                                            {{ aluno.nome }}
+                                        </a>
+                                    </li>
+                                {% empty %}
+                                    <li class="text-gray-500">Nenhum aluno vinculado.</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="font-semibold text-lg text-gray-800">Parceiros</h3>
+                        <ul class="list-disc list-inside mt-2 text-gray-700">
+                           {% for parceiro in data.parceiros %}
+                                <li>{{ parceiro }}</li>
+                           {% empty %}
+                                <li class="text-gray-500">Nenhum parceiro associado.</li>
+                           {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-lg text-gray-800 mb-2">Resumo Financeiro</h3>
+                        <div class="space-y-2">
+                            {% if data.valor_mensal > 0 %}
+                                <p class="text-gray-700">
+                                    <strong class="font-medium text-green-700">Total Mensal:</strong> R$ {{ data.valor_mensal|floatformat:2 }}
+                                </p>
+                            {% endif %}
+                            
+                            {% if data.valores_anuais %}
+                                <div>
+                                    <strong class="font-medium text-blue-700">Pagamentos Anuais:</strong>
+                                    <ul class="list-disc list-inside ml-4 text-gray-700">
+                                        {% for valor in data.valores_anuais %}
+                                            <li>R$ {{ valor|floatformat:2 }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+
+                            {% if data.valores_semestrais %}
+                                <div>
+                                    <strong class="font-medium text-purple-700">Pagamentos Semestrais:</strong>
+                                    <ul class="list-disc list-inside ml-4 text-gray-700">
+                                        {% for valor in data.valores_semestrais %}
+                                            <li>R$ {{ valor|floatformat:2 }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+                            
+                            {% if data.valor_mensal == 0 and not data.valores_anuais and not data.valores_semestrais %}
+                                <p class="text-gray-500">Nenhum custo recorrente cadastrado.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}

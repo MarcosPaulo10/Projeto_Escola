@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sua Escola de Atividades - Transformando Espaços com Esporte e Arte</title>
+    <meta name="description" content="Oferecemos aulas de futsal, balé, judô e xadrez para escolas, condomínios e clubes. Parceria completa e sem preocupações.">
+    
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        /* --- GERAL E VARIÁVEIS --- */
+:root {
+    --primary-color: #2a6fdb; /* Azul forte */
+    --secondary-color: #ff8c00; /* Laranja vibrante */
+    --dark-color: #333;
+    --light-color: #f4f4f4;
+    --text-color: #555;
+    --white-color: #fff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif; /* Use uma fonte moderna. Se não tiver, use 'Arial', sans-serif */
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--white-color);
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+section {
+    padding: 80px 0;
+}
+
+h1, h2, h3 {
+    color: var(--dark-color);
+    margin-bottom: 20px;
+}
+
+h1 { font-size: 2.8rem; line-height: 1.2; }
+h2 { font-size: 2.2rem; text-align: center; }
+p { margin-bottom: 15px; }
+
+.cta-button {
+    display: inline-block;
+    background-color: var(--secondary-color);
+    color: var(--white-color);
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #e67e00;
+}
+
+/* --- HEADER E NAVEGAÇÃO --- */
+.header {
+    background-color: var(--white-color);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.main-nav {
+    display: none; /* Escondido em mobile */
+}
+
+.main-nav.is-active {
+    display: flex;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background-color: var(--white-color);
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.main-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.main-nav.is-active ul {
+    width: 100%;
+    text-align: center;
+}
+
+.main-nav li {
+    padding: 15px 0;
+}
+
+.main-nav a {
+    text-decoration: none;
+    color: var(--dark-color);
+    font-weight: 500;
+    padding: 10px 15px;
+    transition: color 0.3s ease;
+}
+
+.main-nav a:hover {
+    color: var(--primary-color);
+}
+
+.cta-button-nav {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border-radius: 5px;
+}
+
+.cta-button-nav:hover {
+    background-color: #2159ad;
+    color: var(--white-color);
+}
+
+.hamburger {
+    display: block; /* Visível em mobile */
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--dark-color);
+}
+
+
+/* --- SEÇÃO HERÓI --- */
+#hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://via.placeholder.com/1920x1080?text=Crianças+Felizes') no-repeat center center/cover;
+    color: var(--white-color);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.hero-content h1 {
+    color: var(--white-color);
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+/* --- SEÇÃO DE PARCEIROS --- */
+#partners {
+    background-color: var(--light-color);
+}
+
+.logos-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.logos-container img {
+    max-height: 60px;
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.logos-container img:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+}
+
+/* --- COMO FUNCIONA --- */
+.steps-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.step {
+    text-align: center;
+    padding: 20px;
+}
+
+.step i {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+/* --- VÍDEO --- */
+#video-section {
+    background-color: var(--light-color);
+}
+.video-container {
+    max-width: 500px; /* Ideal para vídeo vertical */
+    margin: 40px auto 0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    border-radius: 15px;
+    overflow: hidden;
+}
+.video-container video {
+    width: 100%;
+    display: block;
+}
+
+/* --- MODALIDADES --- */
+.modalities-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.modality-card {
+    background-color: var(--white-color);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.modality-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 25px rgba(0,0,0,0.12);
+}
+
+.modality-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.modality-card h3, .modality-card p {
+    padding: 0 20px;
+}
+
+.modality-card h3 { margin-top: 20px; }
+.modality-card p { padding-bottom: 20px; }
+
+
+/* --- SOBRE NÓS --- */
+.about-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+.about-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* --- DEPOIMENTOS --- */
+#testimonials {
+    background-color: var(--light-color);
+}
+.testimonials-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-top: 50px;
+}
+.testimonial-card {
+    background-color: var(--white-color);
+    padding: 30px;
+    border-radius: 10px;
+    border-left: 5px solid var(--primary-color);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+.testimonial-card blockquote {
+    font-style: italic;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+}
+.testimonial-card cite {
+    font-weight: bold;
+    color: var(--dark-color);
+}
+
+/* --- CONTATO --- */
+#contact {
+    text-align: center;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+#contact h2, #contact p {
+    color: var(--white-color);
+}
+
+#contact-form {
+    max-width: 600px;
+    margin: 40px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#contact-form input, #contact-form textarea {
+    width: 100%;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+#contact-form textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+#contact-form button {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem;
+    border: none;
+    cursor: pointer;
+}
+
+/* --- FOOTER --- */
+.footer {
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    padding: 40px 0 20px;
+}
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+.footer-social a {
+    color: var(--white-color);
+    font-size: 1.5rem;
+    margin: 0 10px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+.footer-social a:hover {
+    color: var(--secondary-color);
+}
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid #555;
+    padding-top: 20px;
+    font-size: 0.9rem;
+}
+
+/* --- ANIMAÇÃO DE FADE-IN --- */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* --- MEDIA QUERIES (Telas maiores) --- */
+
+@media(min-width: 768px) {
+    h1 { font-size: 3.5rem; }
+    h2 { font-size: 2.5rem; }
+
+    .hamburger { display: none; }
+    .main-nav { display: block; }
+    .main-nav ul { display: flex; align-items: center; gap: 10px; }
+    .main-nav li { padding: 0; }
+
+    .steps-container { grid-template-columns: repeat(2, 1fr); }
+    .modalities-grid { grid-template-columns: repeat(2, 1fr); }
+    .testimonials-container { grid-template-columns: repeat(2, 1fr); }
+    
+    .about-container {
+        flex-direction: row;
+        gap: 60px;
+    }
+    .about-image, .about-text {
+        flex: 1;
+    }
+
+    .footer-content {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+    }
+}
+
+@media(min-width: 992px) {
+    .steps-container { grid-template-columns: repeat(4, 1fr); }
+}
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <a href="#" class="logo">Sua Logo</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#how-it-works">Como Funciona</a></li>
+                    <li><a href="#modalities">Modalidades</a></li>
+                    <li><a href="#about">Sobre Nós</a></li>
+                    <li><a href="#contact" class="cta-button-nav">Seja um Parceiro</a></li>
+                </ul>
+            </nav>
+            <button class="hamburger" id="hamburger-menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="hero-content">
+                <h1>As melhores atividades extracurriculares, sem complicação para você.</h1>
+                <p>Levamos futsal, balé, judô e xadrez para sua escola, condomínio ou clube com uma parceria completa e profissional. Nós cuidamos de tudo.</p>
+                <a href="#contact" class="cta-button">Quero ser um Parceiro</a>
+            </div>
+        </section>
+
+        <section id="partners">
+            <div class="container">
+                <h2>Quem confia em nosso trabalho</h2>
+                <div class="logos-container">
+                    <img src="https://via.placeholder.com/150x60?text=Escola+ABC" alt="Logo Parceiro 1">
+                    <img src="https://via.placeholder.com/150x60?text=Clube+XYZ" alt="Logo Parceiro 2">
+                    <img src="https://via.placeholder.com/150x60?text=Condomínio+Top" alt="Logo Parceiro 3">
+                    <img src="https://via.placeholder.com/150x60?text=Escola+Exemplo" alt="Logo Parceiro 4">
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works" class="fade-in">
+            <div class="container">
+                <h2>A Parceria Ideal: Mais Vantagens, Zero Preocupação</h2>
+                <div class="steps-container">
+                    <div class="step">
+                        <i class="fas fa-handshake"></i>
+                        <h3>1. Parceria Firmada</h3>
+                        <p>Definimos juntos as modalidades e horários ideais para o seu espaço. A burocracia é mínima.</p>
+                    </div>
+                    <div class="step">
+                        <i class="fas fa-bullhorn"></i>
+                        <h3>2. Divulgação e Matrículas</h3>
+                        <p>Nossa equipe cuida de toda a comunicação com os pais, apresentando as atividades e realizando as matrículas.</p>
+                    </div>
+                    <div class="step">
+                        <i class="fas fa-running"></i>
+                        <h3>3. Aulas em Ação</h3>
+                        <p>Nossos professores especializados iniciam as aulas, trazendo mais vida e energia para o seu ambiente.</p>
+                    </div>
+                    <div class="step">
+                        <i class="fas fa-tasks"></i>
+                        <h3>4. Gestão Completa</h3>
+                        <p>Cuidamos das mensalidades e de todo o relacionamento com os pais. Você acompanha os resultados sem se preocupar.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="video-section" class="fade-in">
+            <div class="container">
+                <h2>Energia que contagia: veja nossas aulas em ação!</h2>
+                <div class="video-container">
+                    <video controls poster="https://via.placeholder.com/500x889?text=Capa+do+Vídeo">
+                        <source src="seu_video.mp4" type="video/mp4">
+                        Seu navegador não suporta o elemento de vídeo.
+                    </video>
+                </div>
+            </div>
+        </section>
+
+        <section id="modalities" class="fade-in">
+            <div class="container">
+                <h2>Desenvolvendo campeões para a vida</h2>
+                <div class="modalities-grid">
+                    <div class="modality-card">
+                        <img src="https://via.placeholder.com/400x300?text=Futsal" alt="Crianças jogando futsal">
+                        <h3>Futsal: Agilidade e Espírito de Equipe</h3>
+                        <p>Mais que um esporte, o futsal desenvolve a coordenação motora, o raciocínio rápido e a importância de colaborar em time.</p>
+                    </div>
+                    <div class="modality-card">
+                        <img src="https://via.placeholder.com/400x300?text=Balé" alt="Aula de balé">
+                        <h3>Balé: Disciplina e Expressão Artística</h3>
+                        <p>O balé introduz as crianças ao mundo da música e do movimento, trabalhando a postura, a disciplina e a autoconfiança.</p>
+                    </div>
+                    <div class="modality-card">
+                        <img src="https://via.placeholder.com/400x300?text=Judô" alt="Crianças em aula de judô">
+                        <h3>Judô: Respeito e Autocontrole</h3>
+                        <p>Uma arte marcial que ensina valores fundamentais como respeito, disciplina e coragem, em um ambiente seguro e controlado.</p>
+                    </div>
+                    <div class="modality-card">
+                        <img src="https://via.placeholder.com/400x300?text=Xadrez" alt="Crianças jogando xadrez">
+                        <h3>Xadrez: Estratégia e Concentração</h3>
+                        <p>O xadrez é uma ferramenta poderosa para estimular o pensamento lógico, a capacidade de planejamento e o foco das crianças.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="about" class="fade-in">
+            <div class="container about-container">
+                <div class="about-image">
+                    <img src="https://via.placeholder.com/500x500?text=Nossa+Equipe" alt="Nossa equipe">
+                </div>
+                <div class="about-text">
+                    <h2>Nossa missão é semear o futuro</h2>
+                    <p>Acreditamos no poder do esporte e da arte como ferramentas de transformação. Nossa equipe é formada por educadores apaixonados e qualificados, dedicados a oferecer a melhor experiência para cada criança.</p>
+                    <p>Nosso objetivo é facilitar a vida de escolas, clubes e condomínios, oferecendo uma solução completa que agrega valor à instituição e conveniência para as famílias.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="testimonials" class="fade-in">
+            <div class="container">
+                <h2>O que nossos parceiros dizem</h2>
+                <div class="testimonials-container">
+                    <div class="testimonial-card">
+                        <blockquote>"A parceria foi um divisor de águas. Eles cuidam de tudo com um profissionalismo incrível e os alunos adoram as aulas!"</blockquote>
+                        <cite>– Maria Silva, Diretora da Escola ABC</cite>
+                    </div>
+                    <div class="testimonial-card">
+                        <blockquote>"Finalmente encontramos uma solução completa para as atividades do condomínio. Os pais estão muito satisfeitos."</blockquote>
+                        <cite>– Carlos Andrade, Síndico do Condomínio Top</cite>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="fade-in">
+            <div class="container">
+                <h2>Leve mais esporte e cultura para sua instituição.</h2>
+                <p>Vamos conversar? Preencha o formulário e nossa equipe entrará em contato para agendar uma apresentação sem compromisso.</p>
+                <form id="contact-form">
+                    <input type="text" name="name" placeholder="Seu nome" required>
+                    <input type="email" name="email" placeholder="Seu melhor e-mail" required>
+                    <input type="text" name="institution" placeholder="Nome da sua instituição (escola, clube...)" required>
+                    <textarea name="message" placeholder="Deixe uma mensagem (opcional)"></textarea>
+                    <button type="submit" class="cta-button">Solicitar Contato</button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>Sua Escola de Atividades</h3>
+                    <p>CNPJ: 00.000.000/0001-00</p>
+                    <p>contato@suaescola.com.br</p>
+                    <p>(62) 99999-9999</p>
+                </div>
+                <div class="footer-social">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Sua Escola de Atividades. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+    // --- LÓGICA PARA O MENU HAMBÚRGUER ---
+    const hamburgerMenu = document.getElementById('hamburger-menu');
+    const mainNav = document.querySelector('.main-nav');
+
+    hamburgerMenu.addEventListener('click', () => {
+        mainNav.classList.toggle('is-active');
+    });
+
+    // Fecha o menu ao clicar em um link (útil para navegação na mesma página)
+    document.querySelectorAll('.main-nav a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (mainNav.classList.contains('is-active')) {
+                mainNav.classList.remove('is-active');
+            }
+        });
+    });
+
+    // --- ANIMAÇÃO DE SCROLL (FADE-IN) ---
+    const fadeInSections = document.querySelectorAll('.fade-in');
+
+    const sectionObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1 // A seção se torna visível quando 10% dela está na tela
+    });
+
+    fadeInSections.forEach(section => {
+        sectionObserver.observe(section);
+    });
+
+    // --- LÓGICA DO FORMULÁRIO DE CONTATO ---
+    const contactForm = document.getElementById('contact-form');
+
+    contactForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // Impede o envio padrão do formulário
+
+        // Simulação de envio de dados
+        // Aqui você integraria com um serviço de e-mail (EmailJS, Formspree) ou seu backend
+        const formData = new FormData(contactForm);
+        const name = formData.get('name');
+
+        // Exibe uma mensagem de sucesso
+        alert(`Obrigado pelo seu contato, ${name}! Retornaremos em breve.`);
+
+        // Limpa o formulário
+        contactForm.reset();
+    });
+
+});
+    </script>
+</body>
+</html>

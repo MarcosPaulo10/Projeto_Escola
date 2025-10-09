@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exportar Dados</title>
+</head>
+<body>
+    <h1>Exportar Tabelas para Excel</h1>
+    <p>Clique no botão abaixo para gerar e baixar um arquivo .xlsx com todos os dados do sistema.</p>
+    <a href="{% url 'exportar_tabelas_xlsx' %}" download>
+        <button type="button">Baixar Arquivo XLSX Completo</button>
+    </a>
+
+    <br><br><hr><br>
+
+    <h2>Relatório de Faturamento</h2>
+    <p>
+        Selecione os filtros abaixo para gerar uma planilha personalizada com os dados de faturamento.
+    </p>
+
+    <form action="{% url 'exportar_faturamento_xlsx' %}" method="GET" style="margin-bottom: 20px;">
+        
+        <label for="mes"><b>Mês de Referência:</b></label>
+        <select name="mes" id="mes" style="padding: 5px; margin-right: 20px;">
+            <option value="0">Todos os Meses</option>
+            <option value="1">Janeiro</option>
+            <option value="2">Fevereiro</option>
+            <option value="3">Março</option>
+            <option value="4">Abril</option>
+            <option value="5">Maio</option>
+            <option value="6">Junho</option>
+            <option value="7">Julho</option>
+            <option value="8">Agosto</option>
+            <option value="9">Setembro</option>
+            <option value="10">Outubro</option>
+            <option value="11">Novembro</option>
+            <option value="12">Dezembro</option>
+        </select>
+
+        <label for="status_pagamento"><b>Status do Pagamento:</b></label>
+        <select name="status_pagamento" id="status_pagamento" style="padding: 5px;">
+            <option value="todos">Todos</option>
+            <option value="pago">Apenas Pagos</option>
+            <option value="nao_pago">Apenas Não Pagos</option>
+        </select>
+
+        <br><br>
+
+        <button type="submit" style="display: inline-block; padding: 12px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; border: none; cursor: pointer;">
+            Gerar Relatório de Faturamento
+        </button>
+    </form>
+    <br><hr><br>
+
+    <h2>Análise para Migração de Famílias</h2>
+    <p>
+        Clique no botão abaixo para gerar uma planilha Excel com a sugestão de agrupamento
+        das famílias atuais. Esta função é temporária e será removida após a migração dos dados.
+    </p>
+    <a href="{% url 'gerar_planilha_familias' %}" 
+       style="display: inline-block; padding: 12px 20px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px;">
+        Gerar Planilha de Agrupamento
+    </a>
+
+</body>
+</html>

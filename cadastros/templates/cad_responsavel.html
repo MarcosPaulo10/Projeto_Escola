@@ -1,0 +1,88 @@
+{% extends 'menu_lateral.html' %}
+{% load static %}
+
+{% block 'title' %}Cadastro de Responsável{% endblock %}
+
+{% block 'main' %}
+<main class="main-content p-6 md:p-10 flex flex-col items-center">
+    <div class="w-full max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
+
+        <h2 class="text-2xl font-semibold text-darken mb-6 text-center">Cadastro de Responsável</h2>
+
+        <form action="{% url 'cad_responsavel_save' %}" method="POST" class="space-y-4">
+            {% csrf_token %}
+            
+            <div>
+                <label for="nome" class="block text-sm font-medium text-gray-700">Nome do Responsável:</label>
+                <input type="text" id="nome" name="nome" placeholder="..." class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken">
+            </div>
+            
+            <div>
+                <label for="cpfcnpj" class="block text-sm font-medium text-gray-700">CPF/CNPJ do Responsável:</label>
+                <input type="text" id="cpfcnpj" name="cpfcnpj" placeholder="..." class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken">
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Tipo do Responsável:</label>
+                <div class="mt-2 space-y-2">
+                    <div class="flex items-center space-x-2">
+                        <input type="radio" id="pai" name="tipo_responsavel" value="pai" class="form-radio h-4 w-4 text-darken">
+                        <label for="pai" class="text-gray-700">Pai</label>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <input type="radio" id="mae" name="tipo_responsavel" value="mae" class="form-radio h-4 w-4 text-darken">
+                        <label for="mae" class="text-gray-700">Mãe</label>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <input type="radio" id="avo" name="tipo_responsavel" value="avó" class="form-radio h-4 w-4 text-darken">
+                        <label for="avo" class="text-gray-700">Avó</label>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <input type="radio" id="avo_masc" name="tipo_responsavel" value="avô" class="form-radio h-4 w-4 text-darken">
+                        <label for="avo_masc" class="text-gray-700">Avô</label>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <input type="radio" id="tia" name="tipo_responsavel" value="tia" class="form-radio h-4 w-4 text-darken">
+                        <label for="tia" class="text-gray-700">Tia</label>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <input type="radio" id="tio" name="tipo_responsavel" value="tio" class="form-radio h-4 w-4 text-darken">
+                        <label for="tio" class="text-gray-700">Tio</label>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <input type="radio" id="outro" name="tipo_responsavel" value="outro" class="form-radio h-4 w-4 text-darken">
+                        <label for="outro" class="text-gray-700">Outro</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <label for="telefone" class="block text-sm font-medium text-gray-700">Telefone do Responsável:</label>
+                <input type="text" id="telefone" name="telefone" placeholder="..." class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken">
+            </div>
+            
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700">E-mail do Responsável:</label>
+                <input type="email" id="email" name="email" placeholder="..." class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken">
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Enviar boleto pelo Asaas?</label>
+                <div class="flex items-center space-x-2 mt-2">
+                    <input type="checkbox" id="boleto" name="boleto" value="True" class="form-checkbox text-darken h-5 w-5 rounded">
+                    <label for="boleto" class="text-gray-700">Sim</label>
+                </div>
+            </div>
+            
+            <div>
+                <label for="obs" class="block text-sm font-medium text-gray-700">Observação:</label>
+                <textarea id="obs" rows="5" name="obs" placeholder="..." class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken"></textarea>
+            </div>
+            
+            <button type="submit" class="w-full bg-darken text-white font-bold py-3 px-6 rounded-lg shadow hover:bg-blue-700 transition-colors duration-300">
+                Cadastrar
+            </button>
+        </form>
+    </div>
+</main>
+{% endblock %}

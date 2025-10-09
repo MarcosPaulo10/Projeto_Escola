@@ -1,0 +1,110 @@
+{% extends 'menu_lateral.html' %}
+{% load static %}
+
+{% block 'title' %}Gerenciar Família #{{ familia.id }}{% endblock %}
+
+{% block 'main' %}
+<main class="main-content p-6 md:p-10">
+    <div class="w-full max-w-6xl mx-auto space-y-8">
+        <div>
+            <h1 class="text-3xl font-bold text-darken">Gerenciar Família #{{ familia.id }}</h1>
+            <p class="text-lg text-gray-600">Adicione, remova ou altere os papéis dos membros.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <div class="lg:col-span-2 bg-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-xl font-semibold text-darken mb-4">Membros Atuais</h2>
+                
+                <h3 class="font-semibold text-gray-800 mt-4">Responsáveis ({{ responsaveis_da_familia.count }})</h3>
+                <div class="mt-2 space-y-2">
+                    {% for resp in responsaveis_da_familia %}
+                        <div class="flex justify-between items-center p-2 bg-gray-50 rounded-md">
+                        <div>
+                            <a href="{% url 'perfil_responsavel' resp.id %}" class="hover:underline font-medium">{{ resp.nome }}</a>
+                            
+                            {% if resp == familia.responsavel_financeiro and resp.cpf_cnpj %}
+                                <span class="ml-2 text-xs text-gray-500">(Financeiro: {{ resp.cpf_cnpj }})</span>
+                            {% endif %}
+                            
+                            {% if resp == familia.responsavel_contato and resp.telefone %}
+                                <a href="https://wa.me/55{{ resp.telefone }}" target="_blank" class="ml-2 text-xs text-green-600 hover:underline">(Contato: {{ resp.telefone }})</a>
+                            {% endif %}
+                        </div>
+                        <a href="{% url 'remover_membro_familia' id_membro=resp.id tipo_membro='responsavel' %}" onclick="return confirm('Tem certeza que deseja remover {{ resp.nome }} desta família?')" class="opacity-75 hover:opacity-100">
+                            <img src="{% static 'img/lixo.png' %}" alt="Remover" class="w-5 h-auto">
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <h3 class="font-semibold text-gray-800 mt-6">Alunos ({{ alunos_da_familia.count }})</h3>
+                <div class="mt-2 space-y-2">
+                    {% for aluno in alunos_da_familia %}
+                        <div class="flex justify-between items-center p-2 bg-gray-50 rounded-md">
+                            <a href="{% url 'perfil_aluno' aluno.id %}" class="hover:underline font-medium">{{ aluno.nome }}</a>
+                            <a href="{% url 'remover_membro_familia' id_membro=aluno.id tipo_membro='aluno' %}" onclick="return confirm('Tem certeza que deseja remover {{ aluno.nome }} desta família?')" class="opacity-75 hover:opacity-100">
+                                <img src="{% static 'img/lixo.png' %}" alt="Remover" class="w-5 h-auto">
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h2 class="text-xl font-semibold text-darken mb-4">Definir Papéis</h2>
+                    <form action="{% url 'definir_papeis_familia' id_familia=familia.id %}" method="POST" class="space-y-4">
+                        {% csrf_token %}
+                        <div>
+                            <label for="role_financeiro" class="block text-sm font-medium text-gray-700">Responsável Financeiro:</label>
+                            <select id="role_financeiro" name="role_financeiro" class="mt-1 block w-full p-2 border-gray-300 rounded-md">
+                                <option value="">Nenhum</option>
+                                {% for resp in responsaveis_da_familia %}
+                                    <option value="{{ resp.id }}" {% if familia.responsavel_financeiro == resp %}selected{% endif %}>{{ resp.nome }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div>
+                            <label for="role_contato" class="block text-sm font-medium text-gray-700">Responsável de Contato:</label>
+                            <select id="role_contato" name="role_contato" class="mt-1 block w-full p-2 border-gray-300 rounded-md">
+                                <option value="">Nenhum</option>
+                                {% for resp in responsaveis_da_familia %}
+                                    <option value="{{ resp.id }}" {% if familia.responsavel_contato == resp %}selected{% endif %}>{{ resp.nome }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button type="submit" class="w-full bg-darken text-white font-bold py-2 px-4 rounded-lg shadow hover:bg-blue-700">Salvar Papéis</button>
+                    </form>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h2 class="text-xl font-semibold text-darken mb-4">Adicionar Membros</h2>
+                    <form action="{% url 'adicionar_membro_familia' id_familia=familia.id %}" method="POST" class="space-y-2">
+                        {% csrf_token %}
+                        <label for="responsavel_id" class="block text-sm font-medium text-gray-700">Responsáveis disponíveis:</label>
+                        <select name="responsavel_id" id="responsavel_id" class="block w-full p-2 border-gray-300 rounded-md">
+                            <option value="">Selecione...</option>
+                            {% for resp_disp in responsaveis_disponiveis %}
+                                <option value="{{ resp_disp.id }}">{{ resp_disp.nome }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="w-full bg-green-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-600">Adicionar Responsável</button>
+                    </form>
+                    <form action="{% url 'adicionar_membro_familia' id_familia=familia.id %}" method="POST" class="space-y-2 mt-4">
+                        {% csrf_token %}
+                        <label for="aluno_id" class="block text-sm font-medium text-gray-700">Alunos disponíveis:</label>
+                        <select name="aluno_id" id="aluno_id" class="block w-full p-2 border-gray-300 rounded-md">
+                            <option value="">Selecione...</option>
+                            {% for aluno_disp in alunos_disponiveis %}
+                                <option value="{{ aluno_disp.id }}">{{ aluno_disp.nome }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="w-full bg-green-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-600">Adicionar Aluno</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

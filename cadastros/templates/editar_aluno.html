@@ -1,0 +1,44 @@
+{% extends 'menu_lateral.html' %}
+{% load static %}
+
+{% block 'title' %}Editar Aluno{% endblock %}
+
+{% block 'main' %}
+<main class="main-content p-6 md:p-10 flex flex-col items-center">
+    <div class="w-full max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
+
+        <h2 class="text-2xl font-semibold text-darken mb-6 text-center">Editar Aluno</h2>
+
+        <form action="{% url 'editar_aluno' aluno.id %}" method="POST" class="space-y-4">
+            {% csrf_token %}
+            
+            <div>
+                <label for="nome" class="block text-sm font-medium text-gray-700">Nome do aluno:</label>
+                <input type="text" id="nome" name="nome" value="{{ aluno.nome }}" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken">
+            </div>
+            
+            <div>
+                <label for="turma_escola" class="block text-sm font-medium text-gray-700">Turma da Escola:</label>
+                <input type="text" id="turma_escola" name="turma_escola" value="{{ aluno.turma_escola }}" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken">
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700">O aluno está ativo?</label>
+                <div class="flex items-center space-x-2 mt-2">
+                    <input type="checkbox" id="ativo" name="ativo" value="True" {% if aluno.ativo %}checked{% endif %} class="form-checkbox text-darken h-5 w-5 rounded">
+                    <label for="ativo" class="text-gray-700">Sim</label>
+                </div>
+            </div>
+            
+            <div>
+                <label for="obs" class="block text-sm font-medium text-gray-700">Observação:</label>
+                <textarea id="obs" rows="5" name="obs" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken">{{ aluno.obs|default:'' }}</textarea>
+            </div>
+            
+            <button type="submit" class="w-full bg-darken text-white font-bold py-3 px-6 rounded-lg shadow hover:bg-blue-700 transition-colors duration-300">
+                Salvar
+            </button>
+        </form>
+    </div>
+</main>
+{% endblock %}

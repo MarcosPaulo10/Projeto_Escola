@@ -1,0 +1,104 @@
+{% extends 'menu_lateral.html' %}
+{% load static %}
+
+{% block 'main' %}
+<main class="main-content p-6 md:p-10 flex flex-col items-center">
+    <div class="w-full max-w-2xl mx-auto space-y-6">
+
+        <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+            <h2 class="text-xl md:text-2xl font-semibold text-darken mb-2">
+                {{ turma.get_modalidade_display }} - {{ turma.turma }}
+            </h2>
+            <p class="text-gray-600 font-medium">
+                {{ turma.parceiro.nome }} - {{ turma.hora_inicio|time:"H:i" }}h
+            </p>
+            <p class="text-gray-600 font-medium mt-1">{{ data_formatada }}</p>
+        </div>
+
+        <section class="bg-white p-6 rounded-lg shadow-lg">
+            <h2 class="text-xl font-semibold text-darken mb-4">Chamada de Alunos</h2>
+            <div class="overflow-hidden rounded-lg border border-gray-200">
+                <table class="min-w-full">
+                    <tbody>
+                        {% for presenca in presencas_alunos %}
+                        <tr class="border-b last:border-0 hover:bg-gray-50 transition-colors duration-200">
+                            <td class="p-3">
+                                <a class="text-gray-800 hover:text-darken" href="{% url 'perfil_aluno' presenca.aluno.id %}">
+                                    - {{ presenca.aluno.nome }}
+                                </a>
+                            </td>
+                            <td class="p-3 text-right">
+                                <a href="{% url 'update_presenca' presenca.id id_turma data 'alun' %}" onclick="saveScrollPosition()">
+                                    <img class="w-8 h-8 mx-auto hover:scale-110 transition-transform duration-200" src="
+                                        {% if presenca.status %}
+                                            {% static 'img/check.png' %}
+                                        {% else %}
+                                            {% static 'img/exit.png' %}
+                                        {% endif %}
+                                    " alt="Status de Presença">
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="bg-white p-6 rounded-lg shadow-lg">
+            <h2 class="text-xl font-semibold text-darken mb-4">Chamada de Professor</h2>
+            <div class="overflow-hidden rounded-lg border border-gray-200">
+                <table class="min-w-full">
+                    <tbody>
+                        {% for presenca in presencas_professores %}
+                        <tr class="border-b last:border-0 hover:bg-gray-50 transition-colors duration-200">
+                            <td class="p-3">
+                                <a class="text-gray-800 hover:text-darken" href="{% url 'perfil_funcionario' presenca.funcionario.id %}">
+                                    - {{ presenca.funcionario.nome }}
+                                </a>
+                            </td>
+                            <td class="p-3 text-right">
+                                <a href="{% url 'update_presenca' presenca.id id_turma data 'prof' %}" onclick="saveScrollPosition()">
+                                    <img class="w-8 h-8 mx-auto hover:scale-110 transition-transform duration-200" src="
+                                        {% if presenca.status %}
+                                            {% static 'img/check.png' %}
+                                        {% else %}
+                                            {% static 'img/exit.png' %}
+                                        {% endif %}
+                                    " alt="Status de Presença">
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+    </div>
+</main>
+{% endblock %}
+
+{% block 'script' %}
+<script>
+    // Função que salva a posição atual do scroll na memória do navegador (sessionStorage)
+    function saveScrollPosition() {
+        sessionStorage.setItem('scrollPosition', window.scrollY);
+    }
+
+    // Quando a página terminar de carregar, executa esta função
+    document.addEventListener('DOMContentLoaded', function() {
+        // Pega a posição que foi salva
+        const scrollPosition = sessionStorage.getItem('scrollPosition');
+
+        // Se uma posição foi encontrada...
+        if (scrollPosition) {
+            // Rola a janela para a posição salva
+            window.scrollTo(0, parseInt(scrollPosition, 10));
+            
+            // Limpa a memória para não rolar a página em outras navegações
+            sessionStorage.removeItem('scrollPosition');
+        }
+    });
+</script>
+{% endblock %}

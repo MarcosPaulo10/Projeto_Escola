@@ -1,0 +1,29 @@
+{% extends 'menu_lateral.html' %}
+{% block 'title' %}Gerar Cobranças Mensais{% endblock %}
+
+{% block 'main' %}
+<main class="main-content p-6 md:p-10 flex flex-col items-center">
+    <div class="w-full max-w-lg mx-auto">
+        <section class="bg-white p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-semibold text-darken mb-6 text-center">Gerar Cobranças Mensais</h2>
+
+
+            <form method="POST" action="{% url 'gerar_cobrancas' %}">
+                {% csrf_token %}
+                <div class="space-y-4">
+                    <div>
+                        <label for="mes" class="block text-sm font-medium text-gray-700">Selecione o Mês e Ano:</label>
+                        <input type="month" id="mes" name="mes" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg" required>
+                    </div>
+                    <button type="submit" class="w-full bg-darken text-white font-bold py-3 px-6 rounded-lg shadow hover:bg-blue-700">
+                        Gerar Cobranças
+                    </button>
+                </div>
+            </form>
+            <p class="text-xs text-gray-500 mt-4">
+                Esta ação irá criar um registro de cobrança para todas as famílias com alunos ativos em atividades de pagamento mensal para o mês selecionado. Se a cobrança para uma família já existir, ela não será duplicada.
+            </p>
+        </section>
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'menu_lateral.html' %}
+{% load static %}
+
+{% block 'title' %}Vínculo Aluno - Responsável{% endblock %}
+
+{% block 'main' %}
+<main class="main-content p-6 md:p-10 flex flex-col items-center">
+    <div class="w-full max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
+
+        <h2 class="text-2xl font-semibold text-darken mb-6 text-center">Vínculo Aluno - Responsável</h2>
+
+        <form action="{% url 'vinculo_aluno_responsavel' %}" method="POST" class="space-y-4">
+            {% csrf_token %}
+            
+            <div>
+                <label for="aluno_id" class="block text-sm font-medium text-gray-700">Aluno:</label>
+                <select id="aluno_id" name="aluno_id" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken">
+                    <option value="">Escolha o aluno...</option>
+                    {% for aluno in alunos %}
+                        <option value="{{ aluno.id }}">{{ aluno.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div>
+                <label for="responsavel_id" class="block text-sm font-medium text-gray-700">Responsável:</label>
+                <select id="responsavel_id" name="responsavel_id" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken">
+                    <option value="">Escolha o responsável...</option>
+                    {% for responsavel in responsaveis %}
+                        <option value="{{ responsavel.id }}">{{ responsavel.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <button type="submit" class="w-full bg-darken text-white font-bold py-3 px-6 rounded-lg shadow hover:bg-blue-700 transition-colors duration-300">
+                Vincular
+            </button>
+        </form>
+    </div>
+</main>
+{% endblock %}

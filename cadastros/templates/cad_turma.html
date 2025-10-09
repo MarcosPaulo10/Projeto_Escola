@@ -1,0 +1,68 @@
+{% extends 'menu_lateral.html' %}
+{% load static %}
+
+{% block 'title' %}Cadastro de Turma{% endblock %}
+
+{% block 'main' %}
+<main class="main-content p-6 md:p-10 flex flex-col items-center">
+    <div class="w-full max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
+
+        <h2 class="text-2xl font-semibold text-darken mb-6 text-center">Cadastro de Turma</h2>
+
+        <form action="{% url 'cad_turma' %}" method="POST" class="space-y-4">
+            {% csrf_token %}
+            
+            <div>
+                <label for="turma" class="block text-sm font-medium text-gray-700">Nome da Turma:</label>
+                <input type="text" id="turma" name="turma" placeholder="Ex.: Xadrez Infantil 3/4" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken">
+            </div>
+
+            <div>
+                <label for="parceiro" class="block text-sm font-medium text-gray-700">Parceiro:</label>
+                <select id="parceiro" name="parceiro" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken">
+                    <option value="">Selecione um parceiro...</option>
+                    {% for parceiro in parceiros %}
+                        <option value="{{ parceiro.id }}">{{ parceiro.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Modalidade:</label>
+                <div class="mt-2 space-y-2">
+                    </div>
+            </div>
+            
+            <div>
+                <label for="hora_inicio" class="block text-sm font-medium text-gray-700">Horário - Início:</label>
+                <input type="time" id="hora_inicio" name="hora_inicio" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg">
+            </div>
+
+            <div>
+                <label for="hora_fim" class="block text-sm font-medium text-gray-700">Horário - Fim:</label>
+                <input type="time" id="hora_fim" name="hora_fim" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Turma do Estendido?</label>
+                <div class="flex items-center space-x-2 mt-2">
+                    <input type="checkbox" id="estendido" name="estendido" value="True" class="form-checkbox text-darken h-5 w-5 rounded">
+                    <label for="estendido" class="text-gray-700">Sim</label>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Turma ativa?</label>
+                <div class="flex items-center space-x-2 mt-2">
+                    <input type="checkbox" id="status" name="status" value="True" checked class="form-checkbox text-darken h-5 w-5 rounded">
+                    <label for="status" class="text-gray-700">Sim</label>
+                </div>
+            </div>
+            
+            <button type="submit" class="w-full bg-darken text-white font-bold py-3 px-6 rounded-lg shadow hover:bg-blue-700 transition-colors duration-300">
+                Cadastrar
+            </button>
+        </form>
+    </div>
+</main>
+{% endblock %}

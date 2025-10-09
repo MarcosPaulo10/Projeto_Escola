@@ -1,0 +1,64 @@
+{% extends 'menu_lateral.html' %}
+{% load static %}
+
+{% block 'title' %}Editar Funcionário{% endblock %}
+
+{% block 'main' %}
+<main class="main-content p-6 md:p-10 flex flex-col items-center">
+    <div class="w-full max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
+
+        <h2 class="text-2xl font-semibold text-darken mb-6 text-center">Editar Funcionário</h2>
+
+        <form action="{% url 'editar_funcionario' funcionario.id %}" method="POST" class="space-y-4">
+            {% csrf_token %}
+            
+            <div>
+                <label for="nome" class="block text-sm font-medium text-gray-700">Nome do Funcionário:</label>
+                <input type="text" id="nome" name="nome" value="{{ funcionario.nome }}" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken">
+            </div>
+            
+            <div>
+                <label for="cpfcnpj" class="block text-sm font-medium text-gray-700">CPF/CNPJ do Funcionário:</label>
+                <input type="text" id="cpfcnpj" name="cpfcnpj" value="{{ funcionario.cpf_cnpj|default:'' }}" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken">
+            </div>
+            
+            <div>
+                <label for="telefone" class="block text-sm font-medium text-gray-700">Telefone do Funcionário:</label>
+                <input type="text" id="telefone" name="telefone" value="{{ funcionario.telefone|default:'' }}" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken">
+            </div>
+
+            <div>
+                <label for="endereco" class="block text-sm font-medium text-gray-700">Endereço do Funcionário:</label>
+                <textarea id="endereco" rows="1" name="endereco" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken">{{ funcionario.endereco|default:'' }}</textarea>
+            </div>
+
+            <div>
+                <label for="pix" class="block text-sm font-medium text-gray-700">Chave PIX do Funcionário:</label>
+                <input type="text" id="pix" name="pix" value="{{ funcionario.chave_pix|default:'' }}" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken">
+            </div>
+            
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700">E-mail do Funcionário:</label>
+                <input type="email" id="email" name="email" value="{{ funcionario.e_mail|default:'' }}" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken">
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Está ativo?</label>
+                <div class="flex items-center space-x-2 mt-2">
+                    <input type="checkbox" id="status" name="status" value="True" {% if funcionario.Status %}checked{% endif %} class="form-checkbox text-darken h-5 w-5 rounded">
+                    <label for="status" class="text-gray-700">Sim</label>
+                </div>
+            </div>
+            
+            <div>
+                <label for="obs" class="block text-sm font-medium text-gray-700">Observação:</label>
+                <textarea id="obs" rows="5" name="obs" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken">{{ funcionario.obs|default:'' }}</textarea>
+            </div>
+            
+            <button type="submit" class="w-full bg-darken text-white font-bold py-3 px-6 rounded-lg shadow hover:bg-blue-700 transition-colors duration-300">
+                Salvar
+            </button>
+        </form>
+    </div>
+</main>
+{% endblock %}

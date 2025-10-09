@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap');
+
+* {
+    font-family: "Silkscreen", sans-serif;
+    font-weight: 400;
+    font-style: normal; 
+    color: azure;
+    background-color: rgb(27, 27, 27);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    padding-right: 5%;
+    padding-left: 5%;
+}
+
+
+.main_div {
+    border: 5px solid azure;
+    width: 100%;
+    font-size: 14pt;
+    padding: 2%;
+}
+
+/* Inputs */
+input {
+    padding: 10px;
+    border: 1px solid azure;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+    
+.grande {
+    width: 80%;
+}
+    
+.pequeno {
+    width: 25%;
+}
+
+.data {
+    width: 20%;
+}
+
+.hora {
+    width: 100px;
+}
+
+textarea {
+    padding: 10px;
+    border: 1px solid azure;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    width: 50%;
+    height: 15ch;
+}
+
+select {
+    border: 1px solid azure;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-size: 14pt;
+    width: 10%;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.interna_e {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.interna_d {
+    width: 50%;
+}
+
+.formulario {
+    width: 5%;
+    background-color: black;
+    color: beige;
+}
+

@@ -1,0 +1,67 @@
+{% extends 'menu_lateral.html' %}
+{% load static %}
+
+{% block 'title' %}Cadastro de Parceiro{% endblock %}
+
+{% block 'main' %}
+<main class="main-content p-6 md:p-10 flex flex-col items-center">
+    <div class="w-full max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
+
+        <h2 class="text-2xl font-semibold text-darken mb-6 text-center">Cadastro de Parceiro</h2>
+
+        <form action="{% url 'cad_parceiro' %}" method="POST" enctype="multipart/form-data" class="space-y-4">
+            {% csrf_token %}
+            
+            <div>
+                <label for="tipo" class="block text-sm font-medium text-gray-700">Tipo de Parceiro:</label>
+                <select id="tipo" name="tipo" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken">
+                    <option value="escola">Escola</option>
+                    <option value="clube">Clube</option>
+                    <option value="condominio">Condomínio</option>
+                    <option value="empresa">Empresa</option>
+                    <option value="outro">Outro</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="nome" class="block text-sm font-medium text-gray-700">Nome do Parceiro:</label>
+                <input type="text" id="nome" name="nome" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken">
+            </div>
+            
+            <div>
+                <label for="cnpj" class="block text-sm font-medium text-gray-700">CNPJ:</label>
+                <input type="text" id="cnpj" name="cnpj" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken">
+            </div>
+
+            <div>
+                <label for="telefone" class="block text-sm font-medium text-gray-700">Telefone:</label>
+                <input type="text" id="telefone" name="telefone" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken">
+            </div>
+
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700">E-mail:</label>
+                <input type="email" id="email" name="email" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken">
+            </div>
+
+            <div>
+                <label for="chave_pix" class="block text-sm font-medium text-gray-700">Chave PIX:</label>
+                <input type="text" id="chave_pix" name="chave_pix" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken">
+            </div>
+
+            <div>
+                <label for="contrato" class="block text-sm font-medium text-gray-700">Arquivo do Contrato:</label>
+                <input type="file" id="contrato" name="contrato" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+            </div>
+
+            <div>
+                <label for="obs" class="block text-sm font-medium text-gray-700">Observação:</label>
+                <textarea id="obs" name="obs" rows="3" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken"></textarea>
+            </div>
+            
+            <button type="submit" class="w-full bg-darken text-white font-bold py-3 px-6 rounded-lg shadow hover:bg-blue-700 transition-colors duration-300">
+                Cadastrar
+            </button>
+        </form>
+    </div>
+</main>
+{% endblock %}

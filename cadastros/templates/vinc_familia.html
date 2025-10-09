@@ -1,0 +1,107 @@
+{% extends 'menu_lateral.html' %}
+{% load static %}
+
+{% block 'title' %}Vincular Membros à Família{% endblock %}
+
+{% block 'main' %}
+<main class="main-content p-6 md:p-10 flex flex-col items-center">
+    <div class="w-full max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+
+        <h2 class="text-2xl font-semibold text-darken mb-6 text-center">Vincular Membros e Criar Família</h2>
+
+        <form action="{% url 'vinculo_familia' %}" method="POST" class="space-y-6">
+            {% csrf_token %}
+            
+            <div class="border-t pt-4">
+                <h3 class="text-lg font-medium text-gray-900 mb-4">Selecione os Responsáveis</h3>
+                <div id="responsaveis-container" class="space-y-4">
+                    </div>
+                <button type="button" id="add-responsavel" class="mt-4 bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-lg hover:bg-gray-300 transition-colors duration-300">
+                    Adicionar Responsável
+                </button>
+            </div>
+
+            <div class="border-t pt-4">
+                <h3 class="text-lg font-medium text-gray-900 mb-4">Selecione os Alunos</h3>
+                <div id="alunos-container" class="space-y-4">
+                    </div>
+                <button type="button" id="add-aluno" class="mt-4 bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-lg hover:bg-gray-300 transition-colors duration-300">
+                    Adicionar Aluno
+                </button>
+            </div>
+            
+            <button type="submit" class="w-full bg-darken text-white font-bold py-3 px-6 rounded-lg shadow hover:bg-blue-700 transition-colors duration-300">
+                Criar e Vincular Família
+            </button>
+        </form>
+    </div>
+</main>
+
+<template id="responsavel-template">
+    <div class="p-4 border rounded-lg bg-gray-50 flex items-center space-x-4">
+        <select name="responsavel_id" required class="block w-full p-3 border border-gray-300 rounded-lg">
+            <option value="">Selecione um responsável...</option>
+            {% for resp in responsaveis_disponiveis %}
+                <option value="{{ resp.id }}">{{ resp.nome }}</option>
+            {% endfor %}
+        </select>
+        <div class="flex items-center space-x-2">
+            <input type="radio" name="role_financeiro" class="form-radio h-4 w-4 text-darken">
+            <label class="text-gray-700 text-sm">Financeiro</label>
+        </div>
+        <div class="flex items-center space-x-2">
+            <input type="radio" name="role_contato" class="form-radio h-4 w-4 text-darken">
+            <label class="text-gray-700 text-sm">Contato</label>
+        </div>
+    </div>
+</template>
+
+<template id="aluno-template">
+    <div class="p-4 border rounded-lg bg-gray-50">
+        <select name="aluno_id" required class="block w-full p-3 border border-gray-300 rounded-lg">
+            <option value="">Selecione um aluno...</option>
+            {% for aluno in alunos_disponiveis %}
+                <option value="{{ aluno.id }}">{{ aluno.nome }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</template>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const responsaveisContainer = document.getElementById('responsaveis-container');
+    const alunosContainer = document.getElementById('alunos-container');
+    const addResponsavelBtn = document.getElementById('add-responsavel');
+    const addAlunoBtn = document.getElementById('add-aluno');
+    const responsavelTemplate = document.getElementById('responsavel-template');
+    const alunoTemplate = document.getElementById('aluno-template');
+
+    function addResponsavel() {
+        const clone = responsavelTemplate.content.cloneNode(true);
+        const select = clone.querySelector('select');
+        const radios = clone.querySelectorAll('input[type="radio"]');
+
+        // Adiciona um listener para o select clonado
+        select.addEventListener('change', function() {
+            // Atualiza o 'value' dos radio buttons com o ID do responsável selecionado
+            radios.forEach(radio => radio.value = select.value);
+        });
+
+        responsaveisContainer.appendChild(clone);
+    }
+
+    function addAluno() {
+        const clone = alunoTemplate.content.cloneNode(true);
+        alunosContainer.appendChild(clone);
+    }
+
+    // Adiciona os primeiros campos obrigatórios quando a página carrega
+    addResponsavel();
+    addAluno();
+
+    // Adiciona listeners aos botões para criar novos campos
+    addResponsavelBtn.addEventListener('click', addResponsavel);
+    addAlunoBtn.addEventListener('click', addAluno);
+});
+</script>
+{% endblock %}

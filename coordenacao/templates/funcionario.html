@@ -1,0 +1,97 @@
+{% extends 'menu_lateral.html' %}
+{% load static %}
+
+{% block 'title' %}Perfil do Funcionário{% endblock %}
+
+{% block 'main' %}
+<main class="main-content p-6 md:p-10 flex flex-col items-center">
+    <div class="w-full max-w-4xl mx-auto space-y-6">
+
+        <section class="bg-white p-6 rounded-lg shadow-lg">
+            
+            <div class="flex justify-between items-center border-b pb-4 mb-6">
+                <h2 class="text-xl font-semibold text-darken">Dados do Funcionário</h2>
+                <a class="bg-yellow-500 text-white font-bold py-2 px-5 rounded-lg shadow hover:bg-yellow-600 transition-colors duration-300 text-sm" href="{% url 'editar_funcionario' funcionario.id %}">
+                    Editar
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-gray-700">
+                
+                <div>
+                    <strong class="font-semibold text-gray-600">Nome:</strong>
+                    <p>{{ funcionario.nome }}</p>
+                </div>
+                
+                <div>
+                    <strong class="font-semibold text-gray-600">CPF/CNPJ:</strong>
+                    <p>{{ funcionario.cpf_cnpj|default:"Não informado" }}</p>
+                </div>
+
+                <div>
+                    <strong class="font-semibold text-gray-600">Telefone:</strong>
+                    <p>{{ funcionario.telefone|default:"Não informado" }}</p>
+                </div>
+
+                <div>
+                    <strong class="font-semibold text-gray-600">E-mail:</strong>
+                    <p>{{ funcionario.e_mail|default:"Não informado" }}</p>
+                </div>
+
+                <div>
+                    <strong class="font-semibold text-gray-600">Chave PIX:</strong>
+                    <p>{{ funcionario.chave_pix|default:"Não informada" }}</p>
+                </div>
+
+                <div>
+                    <strong class="font-semibold text-gray-600">Status:</strong>
+                    <p>
+                        {% if funcionario.status %}
+                            <span class="font-semibold text-green-600">Ativo</span>
+                        {% else %}
+                            <span class="font-semibold text-red-600">Inativo</span>
+                        {% endif %}
+                    </p>
+                </div>
+
+                <div class="md:col-span-2">
+                    <strong class="font-semibold text-gray-600">Endereço:</strong>
+                    <p>{{ funcionario.endereco|default:"Não informado" }}</p>
+                </div>
+
+                <div class="md:col-span-2">
+                    <strong class="font-semibold text-gray-600">Observações:</strong>
+                    <p class="whitespace-pre-wrap">{{ funcionario.obs|default:"Nenhuma." }}</p>
+                </div>
+            </div>
+
+        </section>
+
+
+        <section class="bg-white p-6 rounded-lg shadow-lg">
+            <h2 class="text-xl font-semibold text-darken mb-4">Turmas Vinculadas</h2>
+            <div class="overflow-hidden rounded-lg border border-gray-200">
+                <table class="min-w-full">
+                    <tbody>
+                        {% for turma in turmas %}
+                        <tr class="border-b last:border-0 hover:bg-gray-50 transition-colors duration-200">
+                            <td class="p-3">
+                                <a class="text-gray-800 hover:text-darken transition-colors duration-300" href="{% url 'perfil_turma' turma.turma.id %}">
+                                    - {{ turma.turma }} -- {{ turma.get_dia_semana_display }} -- Valor da Aula: R${{ turma.valor_aula }}
+                                </a>
+                            </td>
+                            <td class="p-3 text-right">
+                                <a href="{% url 'apagar_func_turm' funcionario.id turma.turma.id perfil %}" onclick="return confirm('Tem certeza que deseja apagar a turma vinculada a este professor?')">
+                                    <img src="{% static 'img/lixo.png' %}" class="w-8 h-8 opacity-75 hover:opacity-100 transition-opacity duration-200" alt="Excluir Turma">
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </div>
+</main>
+{% endblock %}

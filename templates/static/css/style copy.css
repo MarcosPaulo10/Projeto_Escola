@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat+Alternates:ital,wght@1,300;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body {
+    font-size: 100%;
+    background: linear-gradient(68.15deg,#000000 35%, #222222 90%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.topo {
+    background-color: #bc2222;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Lato', sans-serif;  
+    height: 70px;
+}
+
+.topo-logo-texto{
+    display: flex;
+    align-items: center;
+}
+
+.topo-logo {
+    height: 60px;
+    padding-left: 5vw;
+}
+
+.topo-texto {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 28px;
+    color: #25231a;
+}
+
+.topo-menu {
+    display: flex;
+    padding-right: 5vw;
+}
+
+.topo-menu-item {
+    padding-right: 3vw;
+    color: #25231a;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.corpo {
+    border-top: 0.4px solid #ffffff41;
+    display: flex;
+    justify-content: space-around;
+    height: 43vw;
+    color: #ECD6C4;
+}
+
+.session1 {
+    padding-top: 3vw;
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    align-items: center;
+}
+
+.corpo-titulo {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 4vw;
+    color: antiquewhite;
+    padding-bottom: 2.5vw;
+}
+
+.corpo-lista {
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.corpo-lista-item {
+    font-family: 'Montserrat Alternates', sans-serif;
+    color: antiquewhite;
+    font-size: 1.2vw;
+    padding-bottom: 2.5vw;
+}
+
+.corpo-but {
+    background-color: #ECD6C4;
+    width: 180px;
+    border: none;
+    box-shadow: 4px 5px 4px rgba(0,0,0,0.25);
+    border-radius: 20px;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-weight: 400px;
+    font-size: 24px;
+    color: #2F2325;
+}
+
+.corpo-but:hover {
+    background-color: rgba(236,214,196,0.53);
+}
+
+.corpo-texto {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 1.5vw;
+    color: rgb(255, 255, 255);
+    padding-top: 2.5vw;
+}
+
+.session2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 45%;
+}
+
+.login-box {
+    display: flex;
+    flex-direction: column;
+    background-color: #8b828952;
+    border-radius: 20px;
+    padding-left: 3%;
+    width: 500px;
+    height: 85%;
+    overflow-y: auto;
+
+  /* Scrollbar Track Styling */
+  scrollbar-color: #cccccc transparent; /* Track color and thumb color */
+
+  /* Scrollbar Thumb Styling */
+  scrollbar-width: thin; /* Adjust width as desired */
+  scrollbar-thumb: {
+    background-color: #999999; /* Thumb color */
+    border-radius: 6px; /* Rounded corners */
+    border: 2px solid transparent; /* Optional border for a more defined look */
+  }
+
+  /* Scrollbar Hover Effect (Optional) */
+  scrollbar-thumb:hover {
+    background-color: #cccccc; /* Change thumb color on hover */
+  }
+}
+
+.login-box-titulo {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 30px;
+    color: #645f5a;
+    padding-top: 20px;
+}
+
+.login-usuario {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 18px;
+    color: antiquewhite;
+}
+
+.login-usuario > input{
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+    background: #4b083ad3;
+    color: white;
+    font-size: 14px;
+}
+
+.login-bt {
+    background-color: #920c71d3;
+    width: 180px;
+    border: none;
+    box-shadow: 4px 5px 4px rgba(0,0,0,0.25);
+    border-radius: 20px;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 24px;
+    color: #ffffff;
+}
+
+.login-bt:hover {
+    background-color: #920c7181;
+}
+
+.cadastro-link {
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: #ffffff;
+}
+
+.cad-box {
+    display: flex;
+    flex-direction: column;
+    background-color: #000000b4;
+    border-radius: 20px;
+    justify-content: space-between;
+    align-items: center;
+    width: 500px;
+    height: 500px;
+    padding-bottom: 30px;
+}
+
+.cad {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 18px;
+    color: antiquewhite;
+}
+
+.cad > input{
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+    background: #4b083ad3;
+    color: white;
+    font-size: 14px;
+    
+}
+
+.cad_bts {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 15px;
+}
+
+
+.rodape {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 15px;
+    border-top: 0.4px solid #fff2e7;
+    font-family: 'Lato', sans-serif;
+    background-color: #bc2222;
+}
+
+.rodape-p {
+    color: whitesmoke;
+}

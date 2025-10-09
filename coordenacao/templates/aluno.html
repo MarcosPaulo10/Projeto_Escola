@@ -1,0 +1,136 @@
+{% extends 'menu_lateral.html' %}
+{% load static %}
+
+{% block 'title' %}{{ aluno.nome }}{% endblock %}
+
+{% block 'head' %}
+<style>
+    .card-profile {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    .profile-header {
+        border-bottom: 2px solid #1485E3;
+    }
+</style>
+{% endblock %}
+
+{% block 'main' %}
+<main class="main-content p-6 md:p-10">
+    <div class="max-w-4xl mx-auto space-y-8">
+        
+        <div class="bg-white p-6 rounded-xl card-profile">
+            <div class="flex flex-col md:flex-row justify-between items-start">
+                <div>
+                    <div class="flex items-center gap-4 mb-4">
+                        <h1 class="text-2xl font-bold text-darken">{{ aluno.nome }}</h1>
+                        <div>
+                            <span class="px-3 py-1 text-xs font-semibold rounded-full 
+                                {% if vinculos_aluno %} bg-green-100 text-green-800 {% else %} bg-red-100 text-red-800 {% endif %}">
+                                {% if vinculos_aluno %}Ativo{% else %}Inativo{% endif %}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="text-gray-600 space-y-1">
+                        {% if aluno.turma_escola %}
+                            <p><strong>Turma:</strong> {{ aluno.turma_escola }}</p>
+                        {% endif %}
+                        {% if parceiros %} 
+                            {% for p in parceiros %}
+                                <p><strong>{{ p.get_tipo_display }}:</strong>
+                                <a href="{% url 'perfil_parceiro' p.id %}" class="hover:underline">{{ p.nome }}</a>{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+                <a href="{% url 'editar_aluno' aluno.id %}" class="w-full md:w-auto mt-4 md:mt-0 flex-shrink-0 text-center bg-darken text-white font-semibold py-2 px-6 rounded-full shadow-lg hover:bg-yellow-500 transition-colors">
+                    Editar Aluno
+                </a>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl card-profile">
+            <h2 class="text-xl font-bold text-darken profile-header pb-2 mb-4">Turmas Vinculadas</h2>
+            <ul class="space-y-4">
+                {% for vinculo in vinculos_aluno %}
+                    <li class="flex items-start justify-between border-b last:border-b-0 pb-4">
+                        <div>
+                            <a href="{% url 'perfil_turma' vinculo.turma.id %}" class="text-gray-800 hover:text-yellow-500 font-medium transition-colors">
+                                {{ vinculo.turma.get_modalidade_display }} - {{ vinculo.turma.turma }} - {{ vinculo.turma.hora_inicio|time:"H:i" }}
+                            </a>
+                            <p class="text-darken font-semibold mt-1">R$ {{ vinculo.valor }}</p>
+                        </div>
+                        <div class="flex items-center space-x-4 flex-shrink-0 pt-1">
+                            <a href="#">
+                                <img src="{% static 'img/editar.png' %}" alt="Editar" class="w-5 h-auto opacity-75 hover:opacity-100">
+                            </a>
+                            <a href="{% url 'remover_aluno_turma' aluno.id vinculo.turma.id %}" onclick="return confirm('Tem certeza?')">
+                                <img src="{% static 'img/lixo.png' %}" alt="Desvincular" class="w-5 h-auto opacity-75 hover:opacity-100">
+                            </a>
+                        </div>
+                    </li>
+                {% empty %}
+                    <li class="text-gray-500">Nenhuma turma vinculada.</li>
+                {% endfor %}
+            </ul>
+            <a href="{% url 'vinculo_aluno_turma' %}?aluno={{ aluno.id }}" class="mt-6 block bg-darken text-white text-center font-semibold py-2 px-6 rounded-full shadow-lg hover:bg-yellow-500 transition-colors">
+                Vincular Nova Turma
+            </a>
+        </div>
+        
+        <div class="bg-white p-6 rounded-xl card-profile">
+            {% if aluno.familia %}
+            <h2 class="text-xl font-bold text-darken profile-header pb-2 mb-4">
+                <a href="{% url 'perfil_familia' aluno.familia.id %}" class="hover:underline">Família #{{ aluno.familia.id }}</a>
+            </h2>
+            <div class="space-y-4">
+                <div>
+                    <h3 class="font-semibold text-gray-700 mb-2">Responsáveis</h3>
+                    <ul class="space-y-2">
+                        {% for resp in responsaveis_familia %}
+                            <li class="p-2 rounded-md hover:bg-gray-50">
+                                <a href="{% url 'perfil_responsavel' resp.id %}" class="hover:underline">
+                                    <span class="font-bold">{{ resp.get_tipo_responsavel_display|default:'Responsável' }}:</span> {{ resp.nome }}
+                                </a>
+                                {% if resp == aluno.familia.responsavel_contato and resp.telefone %}
+                                    <div class="pl-4 text-xs text-gray-600 mt-1">
+                                        <a href="https://wa.me/55{{ resp.telefone }}" target="whatsapp_tab" class="text-blue-600 hover:underline">
+                                            (Contato: {{ resp.telefone }})
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            </li>
+                        {% empty %}
+                            <li class="text-gray-500">Nenhum responsável vinculado.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% if irmaos %}
+                <div>
+                    <h3 class="font-semibold text-gray-700 mb-2">Outros Alunos na Família</h3>
+                    <ul class="space-y-2">
+                         {% for irmao in irmaos %}
+                            <li class="p-2 rounded-md hover:bg-gray-50">
+                                <a href="{% url 'perfil_aluno' irmao.id %}" class="hover:underline">
+                                    <span class="font-bold">Irmã(o):</span> {{ irmao.nome }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+             <div class="mt-6 pt-4 border-t">
+                <a href="{% url 'perfil_familia' aluno.familia.id %}" class="block bg-darken text-white text-center font-semibold py-2 px-6 rounded-full shadow-lg hover:bg-yellow-500 transition-colors">
+                    Gerenciar Família
+                </a>
+            </div>
+            {% else %}
+                <h2 class="text-xl font-bold text-darken profile-header pb-2 mb-4">Família</h2>
+                <p class="text-gray-500">Este aluno não está vinculado a uma família.</p>
+            {% endif %}
+        </div>
+
+    </div>
+</main>
+{% endblock %}

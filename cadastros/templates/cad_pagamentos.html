@@ -1,0 +1,22 @@
+{% extends 'menu_lateral.html' %}
+{% load static %}
+
+{% block 'title' %}Pagamentos{% endblock %}
+
+{% block 'main' %}
+<main class="main-content p-6 md:p-10 flex flex-col items-center">
+    <div class="w-full max-w-xl mx-auto space-y-8">
+        <section class="bg-white p-6 rounded-lg shadow-lg">
+            <h2 class="text-xl font-semibold text-darken mb-6 text-center">PAGAMENTOS</h2>
+            <nav class="space-y-4">
+                <a class="block p-4 rounded-lg bg-gray-100 text-gray-800 font-medium hover:bg-darken hover:text-white transition-colors duration-300 text-center" href="{% url 'cad_recebido' %}">
+                    Pagamento Recebido (mensalidades, eventos, roupas)
+                </a>
+                <a class="block p-4 rounded-lg bg-gray-100 text-gray-800 font-medium hover:bg-darken hover:text-white transition-colors duration-300 text-center" href="{% url 'cad_pago' %}">
+                    Pagamento Feito (salários, escola, fornecedores)
+                </a>
+            </nav>
+        </section>
+    </div>
+</main>
+{% endblock %}

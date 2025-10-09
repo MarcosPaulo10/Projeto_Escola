@@ -1,0 +1,74 @@
+{% extends 'menu_lateral.html' %}
+{% load static %}
+
+{% block 'title' %}Editar Turma{% endblock %}
+
+{% block 'main' %}
+<main class="main-content p-6 md:p-10 flex flex-col items-center">
+    <div class="w-full max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
+
+        <h2 class="text-2xl font-semibold text-darken mb-6 text-center">Editar Turma</h2>
+
+        <form action="{% url 'editar_turma' turma.id %}" method="POST" class="space-y-4">
+            {% csrf_token %}
+            
+            <div>
+                <label for="turma_name" class="block text-sm font-medium text-gray-700">Nome da Turma:</label>
+                <input type="text" id="turma_name" name="turma" value="{{ turma.turma }}" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg">
+            </div>
+
+            <div>
+                <label for="parceiro" class="block text-sm font-medium text-gray-700">Parceiro:</label>
+                <select id="parceiro" name="parceiro" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg">
+                    <option value="">Selecione um parceiro...</option>
+                    {% for parceiro in parceiros %}
+                        <option value="{{ parceiro.id }}" {% if parceiro.id == turma.parceiro.id %}selected{% endif %}>
+                            {{ parceiro.nome }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Modalidade:</label>
+                <div class="mt-2 space-y-2">
+                    <div class="flex items-center space-x-2">
+                        <input type="radio" id="judo" name="modalidade" value="j" {% if turma.modalidade == "j" %}checked{% endif %} class="form-radio">
+                        <label for="judo">Judô</label>
+                    </div>
+                    </div>
+            </div>
+            
+            <div>
+                <label for="hora_inicio">Horário - Início:</label>
+                <input type="time" id="hora_inicio" name="hora_inicio" value="{{ turma.hora_inicio|time:'H:i' }}" class="mt-1 block w-full p-3 border rounded-lg">
+            </div>
+
+            <div>
+                <label for="hora_fim">Horário - Fim:</label>
+                <input type="time" id="hora_fim" name="hora_fim" value="{{ turma.hora_fim|time:'H:i' }}" class="mt-1 block w-full p-3 border rounded-lg">
+            </div>
+            
+            <div>
+                <label>Turma do Estendido?</label>
+                <div class="flex items-center space-x-2 mt-2">
+                    <input type="checkbox" id="estendido" name="estendido" value="True" {% if turma.estendido %}checked{% endif %} class="form-checkbox">
+                    <label for="estendido">Sim</label>
+                </div>
+            </div>
+
+            <div>
+                <label>Turma ativa?</label>
+                <div class="flex items-center space-x-2 mt-2">
+                    <input type="checkbox" id="status" name="status" value="True" {% if turma.status %}checked{% endif %} class="form-checkbox">
+                    <label for="status">Sim</label>
+                </div>
+            </div>
+            
+            <button type="submit" class="w-full bg-darken text-white font-bold py-3 px-6 rounded-lg shadow hover:bg-blue-700">
+                Salvar Alterações
+            </button>
+        </form>
+    </div>
+</main>
+{% endblock %}

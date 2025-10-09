@@ -1,0 +1,46 @@
+{% extends 'menu_lateral.html' %}
+{% load static %}
+
+{% block 'title' %}Alunos{% endblock %}
+
+{% block 'head' %}
+<style>
+    /* Estilos personalizados para os cards de alunos */
+    .card-aluno {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    .card-header {
+        border-bottom: 2px solid #E37214;
+    }
+</style>
+{% endblock %}
+
+{% block 'main' %}
+<main class="p-6">
+    <section class="mb-8">
+        <form action="{% url 'alunos_home' %}" method="get" class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
+            <input type="text" class="w-full md:w-80 p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-darken transition-colors" placeholder="Busque por alunos..." name="nome">
+            <input type="submit" value="Filtrar" class="bg-darken text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-yellow-500 transition-colors cursor-pointer">
+        </form> 
+    </section>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        {% for data in parceiros_data %}
+        <div class="bg-white p-6 rounded-xl card-aluno">
+            <h2 class="text-2xl font-bold text-darken mb-4 card-header pb-2">{{ data.parceiro.nome }}</h2>
+            <div class="space-y-3">
+                {% for aluno in data.alunos %}
+                    <a class="block text-gray-700 hover:text-yellow-500 font-medium transition-colors" href="{% url 'perfil_aluno' aluno.id %}">
+                        - {{ aluno.nome }}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% empty %}
+            <p class="text-gray-600 col-span-full text-center">Nenhum aluno encontrado.</p>
+        {% endfor %}
+
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'menu_lateral.html' %}
+{% load static %}
+
+{% block 'title' %}Pagamento Recebido{% endblock %}
+
+{% block 'main' %}
+<main class="main-content p-6 md:p-10 flex flex-col items-center">
+    <div class="w-full max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
+
+        <h2 class="text-2xl font-semibold text-darken mb-6 text-center">Pagamento Recebido</h2>
+
+        <form action="{% url 'cad_recebido' %}" method="POST" class="space-y-4">
+            {% csrf_token %}
+            
+            <div>
+                <label for="aluno_id" class="block text-sm font-medium text-gray-700">Aluno:</label>
+                <select id="aluno_id" name="aluno_id" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken">
+                    <option value="">Escolha o aluno...</option>
+                    {% for aluno in alunos %}
+                        <option value="{{ aluno.id }}">{{ aluno.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label for="valor" class="block text-sm font-medium text-gray-700">Valor:</label>
+                <input type="number" step="0.01" id="valor" name="valor" placeholder="Ex.: 199.99" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken">
+            </div>
+
+            <div>
+                <label for="tipo_pagamento" class="block text-sm font-medium text-gray-700">Tipo de Pagamento:</label>
+                <select id="tipo_pagamento" name="tipo_pagamento" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken">
+                    <option value="">Escolha o tipo...</option>
+                    <option value="men">Mensalidade</option>
+                    <option value="mat">Matrícula</option>
+                    <option value="cam">Camiseta</option>
+                    <option value="col">Colant</option>
+                    <option value="kim">Kimono</option>
+                    <option value="eve">Evento</option>
+                    <option value="out">Outro</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="mes" class="block text-sm font-medium text-gray-700">Mês:</label>
+                <select id="mes" name="mes" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken">
+                    <option value="">Escolha o mês...</option>
+                    <option value="jan">Janeiro</option>
+                    <option value="fev">Fevereiro</option>
+                    <option value="mar">Março</option>
+                    <option value="abr">Abril</option>
+                    <option value="mai">Maio</option>
+                    <option value="jun">Junho</option>
+                    <option value="jul">Julho</option>
+                    <option value="ago">Agosto</option>
+                    <option value="set">Setembro</option>
+                    <option value="out">Outubro</option>
+                    <option value="nov">Novembro</option>
+                    <option value="dez">Dezembro</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="ano" class="block text-sm font-medium text-gray-700">Ano:</label>
+                <select id="ano" name="ano" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken">
+                    <option value="">Escolha o ano...</option>
+                    <option value="24">2024</option>
+                    <option value="25">2025</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="status" class="block text-sm font-medium text-gray-700">O pagamento já foi feito?</label>
+                <div class="flex items-center space-x-2 mt-2">
+                    <input type="checkbox" id="status" name="status" value="True" class="form-checkbox text-darken h-5 w-5 rounded">
+                    <label for="status" class="text-gray-700">Sim</label>
+                </div>
+            </div>
+
+            <button type="submit" class="w-full bg-darken text-white font-bold py-3 px-6 rounded-lg shadow hover:bg-blue-700 transition-colors duration-300">
+                Cadastrar
+            </button>
+        </form>
+    </div>
+</main>
+{% endblock %}

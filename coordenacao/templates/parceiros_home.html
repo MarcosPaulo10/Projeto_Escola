@@ -1,0 +1,37 @@
+{% extends 'menu_lateral.html' %}
+{% load static %}
+
+{% block 'title' %}Parceiros{% endblock %}
+
+{% block 'main' %}
+<main class="main-content p-6 md:p-10 flex flex-col items-center">
+    <div class="w-full max-w-4xl mx-auto space-y-8">
+
+        <section class="bg-white p-6 rounded-lg shadow-lg">
+            <h2 class="text-xl font-semibold text-darken mb-4">Buscar Parceiros</h2>
+            <form action="{% url 'parceiros_home' %}" method="GET" class="flex flex-col md:flex-row gap-4">
+                <input type="text" class="flex-grow p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darken" placeholder="Busque por nome do parceiro..." name="nome">
+                <button type="submit" class="px-6 py-3 bg-darken text-white font-bold rounded-lg shadow hover:bg-blue-700 transition-colors duration-300">
+                    Filtrar
+                </button>
+            </form>
+        </section>
+
+        <section class="bg-white p-6 rounded-lg shadow-lg">
+            <h2 class="text-xl font-semibold text-darken mb-4">Lista de Parceiros</h2>
+            <ul class="space-y-2">
+                {% for parceiro in parceiros %}
+                    <li>
+                        <a class="block p-3 rounded-lg text-gray-800 hover:text-darken hover:bg-gray-100 transition-colors duration-200" href="{% url 'perfil_parceiro' parceiro.id %}">
+                            - {{ parceiro.nome }} ({{ parceiro.get_tipo_display }})
+                        </a>
+                    </li>
+                {% empty %}
+                    <li class="p-3 text-gray-500">Nenhum parceiro encontrado.</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'menu_lateral.html' %}
+{% load static %}
+
+{% block 'title' %}Financeiro{% endblock %}
+
+{% block 'head' %}{% endblock %}
+
+{% block 'main' %}
+<main class="main-content p-6 md:p-10 flex flex-col items-center">
+    <div class="w-full max-w-xl mx-auto">
+        <section class="bg-white p-6 rounded-lg shadow-lg">
+            <h2 class="text-xl font-semibold text-darken mb-4">Escolha a Unidade</h2>
+            <div class="space-y-4">
+                <a class="block p-4 rounded-lg bg-gray-100 text-gray-800 font-medium hover:bg-darken hover:text-white transition-colors duration-300" href="#">
+                    - Casa de Vó
+                </a>
+                <a class="block p-4 rounded-lg bg-gray-100 text-gray-800 font-medium hover:bg-darken hover:text-white transition-colors duration-300" href="#">
+                    - Externato
+                </a>
+                <a class="block p-4 rounded-lg bg-gray-100 text-gray-800 font-medium hover:bg-darken hover:text-white transition-colors duration-300" href="#">
+                    - Santo Agostinho
+                </a>
+            </div>
+        </section>
+    </div>
+</main>
+{% endblock %}

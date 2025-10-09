@@ -1,0 +1,70 @@
+{% extends 'menu_lateral.html' %}
+{% load static %}
+
+{% block 'title' %}Perfil do Parceiro{% endblock %}
+
+{% block 'head' %}
+<style>
+    .info-label {
+        font-weight: 600;
+        color: #4A5568; /* gray-700 */
+    }
+    .info-value {
+        color: #1A202C; /* gray-800 */
+    }
+</style>
+{% endblock %}
+
+{% block 'main' %}
+<main class="main-content p-6 md:p-10">
+    <div class="w-full max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+
+        <div class="flex justify-between items-center border-b-2 border-darken pb-4 mb-6">
+            <div>
+                <h1 class="text-3xl font-bold text-darken">{{ parceiro.nome }}</h1>
+                <p class="text-lg text-gray-600">{{ parceiro.get_tipo_display }}</p>
+            </div>
+            <div>
+                <a href="{% url 'editar_parceiro' parceiro.id %}" class="bg-yellow-500 text-white font-bold py-2 px-5 rounded-lg shadow hover:bg-yellow-600 transition-colors whitespace-nowrap">
+                    Editar
+                </a>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+            <div>
+                <span class="info-label">CNPJ:</span>
+                <p class="info-value">{{ parceiro.cnpj|default:"Não informado" }}</p>
+            </div>
+            <div>
+                <span class="info-label">Telefone:</span>
+                <p class="info-value">{{ parceiro.telefone|default:"Não informado" }}</p>
+            </div>
+            <div>
+                <span class="info-label">E-mail:</span>
+                <p class="info-value">{{ parceiro.e_mail|default:"Não informado" }}</p>
+            </div>
+            <div>
+                <span class="info-label">Chave PIX:</span>
+                <p class="info-value">{{ parceiro.chave_pix|default:"Não informado" }}</p>
+            </div>
+            <div class="md:col-span-2">
+                <span class="info-label">Observações:</span>
+                <p class="info-value whitespace-pre-wrap">{{ parceiro.obs|default:"Nenhuma observação." }}</p>
+            </div>
+
+            {% if parceiro.contrato %}
+            <div class="md:col-span-2 mt-4">
+                <span class="info-label">Contrato:</span>
+                <div class="mt-2">
+                    <a href="{{ parceiro.contrato.url }}" target="_blank" class="inline-block bg-darken text-white font-bold py-2 px-5 rounded-lg shadow hover:bg-blue-700 transition-colors">
+                        Visualizar Contrato
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+    </div>
+</main>
+{% endblock %}

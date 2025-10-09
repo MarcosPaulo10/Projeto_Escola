@@ -1,0 +1,36 @@
+{% extends 'menu_lateral.html' %}
+{% load static %}
+
+{% block 'title' %}Cadastros e Vínculos{% endblock %}
+
+{% block 'main' %}
+<main class="main-content p-6 md:p-10 flex flex-col items-center">
+    <div class="w-full max-w-2xl mx-auto space-y-8">
+
+        <section class="bg-white p-6 rounded-lg shadow-lg">
+            <h2 class="text-xl font-semibold text-darken mb-6">CADASTROS</h2>
+            <nav class="space-y-4">
+                <a class="block p-4 rounded-lg bg-gray-100 text-gray-800 font-medium hover:bg-darken hover:text-white transition-colors duration-300 text-center" href="{% url 'cad_aluno' %}">Cadastrar Aluno</a>
+                <a class="block p-4 rounded-lg bg-gray-100 text-gray-800 font-medium hover:bg-darken hover:text-white transition-colors duration-300 text-center" href="{% url 'cad_responsavel' %}">Cadastrar Responsável</a>
+                
+                <a class="block p-4 rounded-lg bg-gray-100 text-gray-800 font-medium hover:bg-darken hover:text-white transition-colors duration-300 text-center" href="{% url 'vinculo_familia' %}">Cadastrar Família</a>
+                
+                <a class="block p-4 rounded-lg bg-gray-100 text-gray-800 font-medium hover:bg-darken hover:text-white transition-colors duration-300 text-center" href="{% url 'cad_turma' %}">Cadastrar Turma</a>
+                <a class="block p-4 rounded-lg bg-gray-100 text-gray-800 font-medium hover:bg-darken hover:text-white transition-colors duration-300 text-center" href="{% url 'cad_funcionario' %}">Cadastrar Funcionário</a>
+                <a class="block p-4 rounded-lg bg-gray-100 text-gray-800 font-medium hover:bg-darken hover:text-white transition-colors duration-300 text-center" href="{% url 'cad_parceiro' %}">Cadastrar Parceiro</a>
+                <!--<a class="block p-4 rounded-lg bg-gray-100 text-gray-800 font-medium hover:bg-darken hover:text-white transition-colors duration-300 text-center" href="{% url 'cad_pagamentos' %}">Cadastrar Pagamentos</a>-->
+            </nav>
+        </section>
+
+        <!--<section class="bg-white p-6 rounded-lg shadow-lg">
+            <h2 class="text-xl font-semibold text-darken mb-6">VÍNCULOS</h2>
+            <nav class="space-y-4">
+                <<a class="block p-4 rounded-lg bg-gray-100 text-gray-800 font-medium hover:bg-darken hover:text-white transition-colors duration-300 text-center" href="{% url 'vinculo_aluno_responsavel' %}">Vincular Aluno - Responsável</a>
+                <a class="block p-4 rounded-lg bg-gray-100 text-gray-800 font-medium hover:bg-darken hover:text-white transition-colors duration-300 text-center" href="{% url 'vinculo_aluno_turma' %}">Vincular Aluno - Turma</a>
+                <a class="block p-4 rounded-lg bg-gray-100 text-gray-800 font-medium hover:bg-darken hover:text-white transition-colors duration-300 text-center" href="{% url 'vinculo_funcionario_turma' %}">Vínculo Professor - Turma</a>
+            </nav>
+        </section>-->
+
+    </div>
+</main>
+{% endblock %}

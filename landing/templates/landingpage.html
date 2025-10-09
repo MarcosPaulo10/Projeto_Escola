@@ -1,0 +1,470 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>G.N. Esporte</title>
+	<!-- Tailwind -->
+	<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+	<!-- Alpine -->
+	<script type="module" src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
+	<script nomodule src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine-ie11.min.js" defer></script>
+	<!-- AOS -->
+	<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+	<!-- Poppins font -->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /*primary color*/
+		.bg-cream {
+			background-color: rgb(243, 250, 255);
+
+		}
+
+		/* Aplica apenas em telas grandes (desktop) */
+		@media (min-width: 768px) {
+			.bg-cream {
+				background-image: url("{% static 'img/land/detalhe_1.png' %}");
+				background-repeat: no-repeat;
+				background-position: 100%;
+				background-size: auto; /* Garante que o tamanho não mude */
+			}
+		}
+
+		.logo_nav {
+			height: 10vh;
+		}
+
+        /*font*/
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .bg-yellow-500 {
+            background-color: #E37214;
+        }
+        .text-yellow-500 {
+            color: #E37214;
+        }
+        .floating { 
+            animation-name: floating; 
+            animation-duration: 2s; 
+            animation-iteration-count: infinite; 
+            animation-timing-function: ease-in-out;
+        } 
+        @keyframes floating { 
+            0% { transform: translate(0, 0px); } 
+            50% { transform: translate(0, 8px); } 
+            100% { transform: translate(0, -0px); }  
+        } 
+        .floating-4 { 
+            animation-name: floating; 
+            animation-duration: 4s; 
+            animation-iteration-count: infinite; 
+            animation-timing-function: ease-in-out;
+        } 
+        @keyframes floating-4 { 
+            0% { transform: translate(0, 0px); } 
+            50% { transform: translate(0, 8px); } 
+            100% { transform: translate(0, -0px); }  
+        }
+        .text-darken {
+            color: #1485E3;
+        }
+
+		/* Daqui pra baixo é o CSS extra - feito posteriormente */
+		/*.parceiros {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}*/
+
+		.parceiros img {
+			height: 30vh;
+			padding: 3vw;
+		}
+
+		.modalidades {
+			box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+			border-radius: 12px;
+		}
+
+		.logo_footer {
+			height: 5vh;
+			padding-right: 1.5vw;
+		}
+
+		.video-section {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 100%;
+			}
+
+			.video-container {
+			max-width: 400px;   /* largura máxima no desktop */
+			width: 90%;         /* ocupa quase toda a tela no mobile */
+			border-radius: 16px;
+			overflow: hidden;
+			box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+			}
+
+			.video-container video {
+			width: 100%;
+			height: auto;
+			display: block;
+			border-radius: 16px;
+			
+			}
+    </style>
+</head>
+<body class="antialiased">
+	<!-- navbar -->
+<div class="bg-cream">
+	
+	<div x-data="{ open: false }" class="w-full text-gray-700">
+        <div class="flex flex-col max-w-screen-xl px-8 mx-auto md:items-center md:justify-between md:flex-row">
+            <div class="flex flex-row items-center justify-between py-6">
+                <div class="relative md:mt-1">
+                    <a href="#" class="text-lg relative z-50 font-bold tracking-widest text-gray-900 rounded-lg focus:outline-none focus:shadow-outline"><img class="logo_nav -mt-5" src="{% static 'img/land/gne_logo.png' %}" alt="GNE"></a>
+                </div>
+                <button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline" @click="open = !open">
+                    <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
+                        <path x-show="!open" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                        <path x-show="open" fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+            <nav :class="{ 'transform md:transform-none': !open, 'h-full': open }" class="h-0 md:h-auto -mt-5 flex flex-col flex-grow md:items-center pb-4 md:pb-0 md:flex md:justify-end md:flex-row origin-top duration-300 scale-y-0 z-50">
+                <!--<a class="px-4 py-2 mt-1 text-sm bg-transparent rounded-lg md:mt-1 md:ml-4 hover:text-gray-900 focus:outline-none focus:shadow-outline" href="#">Início</a>-->
+                <button class="px-4 py-2 mt-1 text-sm bg-transparent rounded-lg md:mt-1 md:ml-4 hover:text-gray-900 focus:outline-none focus:shadow-outline" href="#solucao" onclick="document.getElementById('solucao').scrollIntoView({ behavior: 'smooth' });">Vantagens</button>
+                <button class="px-4 py-2 mt-1 text-sm bg-transparent rounded-lg md:mt-1 md:ml-4 hover:text-gray-900 focus:outline-none focus:shadow-outline" href="#parceria" onclick="document.getElementById('parceria').scrollIntoView({ behavior: 'smooth' });">Parceria</button>
+                <button class="px-4 py-2 mt-1 text-sm bg-transparent rounded-lg md:mt-1 md:ml-4 hover:text-gray-900 focus:outline-none focus:shadow-outline mr-20" href="#sobre" onclick="document.getElementById('sobre').scrollIntoView({ behavior: 'smooth' });">Atividades</button>
+                <a class="px-10 py-3 mt-1 text-sm text-center bg-white text-gray-800 rounded-full md:mt-1 md:ml-4" href="/login/">Entrar</a>
+                <a class="px-10 py-3 mt-1 text-sm text-center bg-yellow-500 text-white rounded-full md:mt-1 md:ml-4" href="#">Cadastrar</a>
+            </nav>
+        </div>
+    </div>
+	
+	<div class="-mt-10">
+		<div class="max-w-screen-xl z-10 px-8 mx-auto flex flex-col lg:flex-row items-start">
+			<!--Left Col-->
+			<div class="flex flex-col w-full lg:w-6/12 z-40 justify-center lg:pt-24 items-start text-center lg:text-left mb-5 md:mb-0">
+				<h1 data-aos="fade-right" data-aos-once="true" class="my-4 text-5xl font-bold leading-tight text-darken">
+					<span class="text-yellow-500">Esporte e Cultura</span><br>dentro da sua escola ficou muito mais fácil
+				</h1>
+				<p data-aos="fade-down" data-aos-once="true" data-aos-delay="300" class="leading-normal text-2xl mb-8">Transforme seu espaço. Enriqueça a vida das crianças com esporte e arte.</p>
+				<div data-aos="fade-up" data-aos-once="true" data-aos-delay="700" class="w-full md:flex items-center justify-center lg:justify-start md:space-x-5">
+					<a href="https://wa.me/556291816609?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20a%20parceria%20da%20Gustavo%20Nogueira%20Esportes." target="_blank" rel="noopener noreferrer" class="lg:mx-0 bg-yellow-500 text-white text-xl font-bold rounded-full py-4 px-9 focus:outline-none transform transition hover:scale-110 duration-300 ease-in-out">
+						Seja um Parceiro
+					</a>
+					<div class="flex items-center justify-center space-x-3 mt-5 md:mt-0 focus:outline-none transform transition hover:scale-110 duration-300 ease-in-out">
+						<button class="bg-white w-14 h-14 rounded-full flex items-center justify-center" href="#video" onclick="document.getElementById('video').scrollIntoView({ behavior: 'smooth' });">
+							<svg class="w-5 h-5 ml-2" viewBox="0 0 24 28" fill="none" xmlns="https://www.w3.org/2000/svg">
+								<path d="M22.5751 12.8097C23.2212 13.1983 23.2212 14.135 22.5751 14.5236L1.51538 27.1891C0.848878 27.5899 5.91205e-07 27.1099 6.25202e-07 26.3321L1.73245e-06 1.00123C1.76645e-06 0.223477 0.848877 -0.256572 1.51538 0.14427L22.5751 12.8097Z" fill="#23BDEE"/>
+							</svg>
+						</button>
+						<span class="cursor-pointer">Vídeo institucional</span>
+					</div>
+				</div>
+			</div>
+			<!--Right Col-->
+			<div class="w-full lg:w-6/12 lg:-mt-10 relative" id="girl">
+				<img data-aos="" data-aos-once="true" class="w-10/12 mx-auto 2xl:-mb-20" src="{% static 'img/land/garoto_trofeu_final.png' %}" />
+				<!-- calendar -->
+				<div data-aos="fade-up" data-aos-delay="300" data-aos-once="true" class="absolute top-20 -left-6 sm:top-32 sm:left-10 md:top-40 md:left-16 lg:-left-0 lg:top-52 floating-4">
+					<img class="bg-white bg-opacity-80 rounded-lg h-12 sm:h-16" src="{% static 'img/land/calendar.svg' %}">
+				</div>
+				<!-- red -->
+				<div data-aos="fade-up" data-aos-delay="400" data-aos-once="true" class="absolute top-20 right-10 sm:right-24 sm:top-28 md:top-36 md:right-32 lg:top-32 lg:right-16 floating">
+					<svg class="h-16 sm:h-24" viewBox="0 0 149 149" fill="none" xmlns="https://www.w3.org/2000/svg"><g filter="url(#filter0_d)"><rect x="40" y="32" width="69" height="69" rx="14" fill="#F3627C"/></g><rect x="51.35" y="44.075" width="47.3" height="44.85" rx="8" fill="white"/><path d="M74.5 54.425V78.575" stroke="#F25471" stroke-width="4" stroke-linecap="round"/><path d="M65.875 58.7375L65.875 78.575" stroke="#F25471" stroke-width="4" stroke-linecap="round"/><path d="M83.125 63.9125V78.575" stroke="#F25471" stroke-width="4" stroke-linecap="round"/><defs><filter id="filter0_d" x="0" y="0" width="149" height="149" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/><feOffset dy="8"/><feGaussianBlur stdDeviation="20"/><feColorMatrix type="matrix" values="0 0 0 0 0.825 0 0 0 0 0.300438 0 0 0 0 0.396718 0 0 0 0.26 0"/><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/><feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/></filter></defs></svg>
+				</div>
+				<!-- ux class -->
+				<div data-aos="fade-up" data-aos-delay="500" data-aos-once="true" class="absolute bottom-14 -left-4 sm:left-2 sm:bottom-20 lg:bottom-24 lg:-left-4 floating">
+					<img class="bg-white bg-opacity-80 rounded-lg h-20 sm:h-28" src="{% static 'img/land/ux-class.svg' %}" alt="">
+				</div>
+				<!-- congrats -->
+				<div data-aos="fade-up" data-aos-delay="600" data-aos-once="true" class="absolute bottom-20 md:bottom-48 lg:bottom-52 -right-6 lg:right-8 floating-4">
+					<img class="bg-white bg-opacity-80 rounded-lg h-12 sm:h-16" src="{% static 'img/land/congrat.svg' %}" alt="">
+				</div>
+			</div>
+		</div>
+		<div class="text-white -mt-14 sm:-mt-24 lg:-mt-36 z-1 relative">
+			<div class="text-white -mt-14 sm:-mt-24 lg:-mt-36 z-1 relative">
+  <svg class="xl:h-40 xl:w-full text-white"
+       xmlns="https://www.w3.org/2000/svg"
+       viewBox="0 0 1200 120"
+       preserveAspectRatio="none">
+       
+    <defs>
+      <!-- filtro para suavizar a sombra -->
+      <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+        <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="rgba(0,0,0,0.35)" />
+      </filter>
+    </defs>
+
+    <!-- aplica o filtro ao path -->
+    <path d="M600,112.77C268.63,112.77,0,65.52,0,7.23V120H1200V7.23C1200,65.52,931.37,112.77,600,112.77Z"
+          fill="currentColor"
+          filter="url(#shadow)"/>
+  </svg>
+</div>
+
+			<!-- <div class="bg-white w-full h-10 -mt-px"></div> -->
+		</div>
+	</div>
+</div>
+
+	<!-- container -->
+	<div class="container px-4 lg:px-8 mx-auto max-w-screen-xl text-gray-700 overflow-x-hidden">
+
+		<!-- trusted by -->
+		<div class="">
+			<h1 class="text-center -mb-8 text-gray-400 font-medium text-lg md:text-xl pt-5">Escolas parceiras</h1>
+			<div class="parceiros flex flex-wrap justify-center items-center -pt-4">
+				<img class="" src="{% static 'img/land/logo_CSA.png' %}" alt="CSA">
+				<img class="" src="{% static 'img/land/logo_CDV_FLY.png' %}" alt="CDV FLY">
+			</div>
+		</div>
+		<div id="solucao"></div>
+		<!-- All-In-One Cloud Software. -->
+		<div data-aos="flip-up" class="max-w-xl mx-auto text-center mt-24">
+			<h1 class="font-bold text-darken my-3 text-2xl">A Parceria Ideal:<br><span class="text-yellow-500">Mais Vantagens, Zero Preocupação</span></h1>
+			<p class="leading-relaxed text-gray-500">Uma solução completa que cuida de cada detalhe para que instituições, pais e crianças aproveitem o melhor das atividades extracurriculares.</p>
+		</div>
+		<!-- card -->
+		<div class="grid md:grid-cols-3 gap-14 md:gap-5 mt-20">
+			<div data-aos="fade-up" class="bg-white shadow-xl p-6 text-center rounded-xl">
+				<div style="background: #5B72EE;" class="rounded-full w-16 h-16 flex items-center justify-center mx-auto shadow-lg transform -translate-y-12">
+					<svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="https://www.w3.org/2000/svg">
+						<path d="M10 2L2 6v2h16V6l-8-4zM2 9v9a1 1 0 001 1h5v-6h4v6h5a1 1 0 001-1V9H2z"/>
+					</svg>
+				</div>
+				<h1 class="font-medium text-xl -mt-4 mb-3 lg:px-14 text-darken">Para Escolas:</h1>
+				<p class="px-4 text-gray-500">Agrega valor e um diferencial competitivo à instituição, sem gerar custos operacionais ou sobrecarga administrativa.</p>
+			</div>
+
+			<div data-aos="fade-up" class="bg-white shadow-xl p-6 text-center rounded-xl">
+				<div style="background: #5B72EE;" class="rounded-full w-16 h-16 flex items-center justify-center mx-auto shadow-lg transform -translate-y-12">
+				<svg class="w-7 h-7 text-white" viewBox="0 0 24 24" fill="currentColor" xmlns="https://www.w3.org/2000/svg">
+            	<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 
+                     4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 
+                     14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 
+                     6.86-8.55 11.54L12 21.35z"/>
+        		</svg>
+				</div>
+				<h1 class="font-medium text-xl -mt-4 mb-3 lg:px-14 text-darken">Para Pais:</h1>
+				<p class="px-4 text-gray-500">Oferece a conveniência e a segurança de aulas de alta qualidade no ambiente que seus filhos já conhecem.</p>
+			</div>
+
+			<div data-aos="fade-up" class="bg-white shadow-xl p-6 text-center rounded-xl">
+				<div style="background: #5B72EE;" class="rounded-full w-16 h-16 flex items-center justify-center mx-auto shadow-lg transform -translate-y-12">
+					<svg class="w-16 h-16 text-white pt-2" viewBox="0 0 64 64" fill="none" aria-label="Para as crianças" xmlns="https://www.w3.org/2000/svg">
+						<circle cx="18" cy="24" r="12" stroke="currentColor" stroke-width="3"/>
+						<circle cx="14" cy="22" r="2" fill="currentColor"/>
+						<circle cx="22" cy="22" r="2" fill="currentColor"/>
+						<path d="M13 27c3 3 9 3 11 0" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+						
+						<circle cx="46" cy="30" r="12" stroke="currentColor" stroke-width="3"/>
+						<circle cx="42" cy="28" r="2" fill="currentColor"/>
+						<circle cx="50" cy="28" r="2" fill="currentColor"/>
+						<path d="M41 33c3 3 9 3 11 0" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+					</svg>
+				</div>
+				<h1 class="font-medium text-xl -mt-4 mb-3 lg:px-14 text-darken">Para Crianças:</h1>
+				<p class="px-4 text-gray-500">Garante um desenvolvimento físico, social e cognitivo através de um aprendizado divertido.</p>
+			</div>
+
+		</div>
+
+		<!-- Seção do Vídeo ---------------------------------------- -->
+		<div id="" class="sm:flex items-center sm:space-x-4 mt-36">
+			<div data-aos="fade-right" class="sm:w-1/2 relative">
+				<div class="bg-yellow-500 rounded-full absolute w-12 h-12 z-0 -left-4 -top-3 animate-pulse"></div>
+				<h1 class="font-semibold text-2xl relative z-50 text-darken lg:pr-10">Energia que contagia:<span class="text-yellow-500"><br> Veja nossas aulas em ação!</span></h1>
+				<p class="py-5 lg:pr-32">Nossas aulas são o cenário onde a diversão encontra o aprendizado. Assista e veja como o esporte e a arte se tornam ferramentas para desenvolver foco, resiliência e o prazer de evoluir a cada novo desafio.</p>
+			</div>
+			<div data-aos="fade-left" class="sm:w-1/2 relative mt-10 sm:mt-0">
+				<div id="video" style="background: #00000000;" class="floating w-24 h-32 absolute rounded-lg z-0 -top-20 left-5"></div>
+				<div id="video" style="background: #23BDEE;" class="floating w-24 h-24 absolute rounded-lg z-0 -top-10 left-10"></div>
+				<div class="rounded-xl z-40 relative">
+					<section class="video-section">
+						<div class="video-container">
+						<iframe src="https://player.vimeo.com/video/1119252331?autoplay=1&loop=1&muted=1&background=1" width="400" height="700" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" title="teaser"></iframe>
+						</div>
+					</section>
+				</div>
+				<div id="parceria" class="bg-yellow-500 w-40 h-40 floating absolute rounded-lg z-10 -bottom-10 right-10"></div>
+			</div>
+		</div>
+		<!-- ------------------------------------------------------ -->
+		
+		<!-- Etapas -->
+		<div class="md:flex mt-40 md:space-x-10 items-start">
+			<!-- img -->
+			<div data-aos="fade-down" class="md:w-7/12 relative">
+				<div style="background: #33EFA0" class="w-32 h-32 rounded-full absolute z-0 left-4 -top-12 animate-pulse"></div>
+				<div style="background: #33D9EF;" class="w-5 h-5 rounded-full absolute z-0 left-36 -top-12 animate-ping"></div>
+				<img class="relative z-50 floating modalidades md:w-10/12" src="{% static 'img/land/gestao.jpg' %}" alt="">
+				<div style="background: #5B61EB;" class="w-36 h-36 rounded-full absolute z-0 right-16 -bottom-1 animate-pulse"></div>
+				<div style="background: #F56666;" class="w-5 h-5 rounded-full absolute z-0 right-52 bottom-1 animate-ping"></div>
+			</div>
+			<!-- text -->
+			<div data-aos="fade-down" class="md:w-5/12 mt-20 md:mt-0 text-gray-500">
+				<h1 class="text-2xl font-semibold text-darken lg:pr-40">Sua Escola<br><span class="text-yellow-500"> Mais Completa</span></h1>
+
+				<div class="flex items-center space-x-5 my-5">
+					<div class="flex-shrink bg-white shadow-lg rounded-full p-3 flex items-center justify-center">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="https://www.w3.org/2000/svg">
+							<path d="M19 4H18V2H16V4H8V2H6V4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="#1485E3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M3 10H21" stroke="#1485E3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+							<rect x="7" y="14" width="3" height="3" rx="1" fill="#1485E3"/>
+							<rect x="14" y="14" width="3" height="3" rx="1" fill="#E37214"/>
+						</svg>
+					</div>
+					<p>Definimos juntos as modalidades e horários ideais para o seu espaço. A burocracia é mínima.</p>
+				</div>
+
+				<div class="flex items-center space-x-5 my-5">
+					<div class="flex-shrink bg-white shadow-lg rounded-full p-3 flex items-center justify-center">
+						<svg width="24" height="24" viewBox="0 0 30 26" fill="none" xmlns="https://www.w3.org/2000/svg">
+							<path d="M4.5 11.375C6.15469 11.375 7.5 9.91758 7.5 8.125C7.5 6.33242 6.15469 4.875 4.5 4.875C2.84531 4.875 1.5 6.33242 1.5 8.125C1.5 9.91758 2.84531 11.375 4.5 11.375ZM25.5 11.375C27.1547 11.375 28.5 9.91758 28.5 8.125C28.5 6.33242 27.1547 4.875 25.5 4.875C23.8453 4.875 22.5 6.33242 22.5 8.125C22.5 9.91758 23.8453 11.375 25.5 11.375ZM27 13H24C23.175 13 22.4297 13.3605 21.8859 13.9445C23.775 15.0668 25.1156 17.093 25.4062 19.5H28.5C29.3297 19.5 30 18.7738 30 17.875V16.25C30 14.4574 28.6547 13 27 13ZM15 13C17.9016 13 20.25 10.4559 20.25 7.3125C20.25 4.16914 17.9016 1.625 15 1.625C12.0984 1.625 9.75 4.16914 9.75 7.3125C9.75 10.4559 12.0984 13 15 13ZM18.6 14.625H18.2109C17.2359 15.1328 16.1531 15.4375 15 15.4375C13.8469 15.4375 12.7688 15.1328 11.7891 14.625H11.4C8.41875 14.625 6 17.2453 6 20.475V21.9375C6 23.2832 7.00781 24.375 8.25 24.375H21.75C22.9922 24.375 24 23.2832 24 21.9375V20.475C24 17.2453 21.5812 14.625 18.6 14.625ZM8.11406 13.9445C7.57031 13.3605 6.825 13 6 13H3C1.34531 13 0 14.4574 0 16.25V17.875C0 18.7738 0.670312 19.5 1.5 19.5H4.58906C4.88438 17.093 6.225 15.0668 8.11406 13.9445Z" fill="#1485E3"/>
+						</svg>
+					</div>
+					<p>Nossa equipe cuida de toda a comunicação com os pais, apresentando as atividades e realizando as matrículas.</p>
+				</div>
+
+				<div class="flex items-center space-x-5 my-5">
+					<div class="flex-shrink bg-white shadow-lg rounded-full p-3 flex items-center justify-center">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="https://www.w3.org/2000/svg">
+						<circle cx="12" cy="12" r="5" stroke="#1485E3" stroke-width="2"/>
+						<path d="M12 2V4" stroke="#E37214" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M12 20V22" stroke="#E37214" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M4 12H2" stroke="#E37214" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M22 12H20" stroke="#E37214" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M4.92993 4.92993L6.37993 6.37993" stroke="#E37214" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M17.6599 17.6599L19.0999 19.0999" stroke="#E37214" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M4.92993 19.0999L6.37993 17.6599" stroke="#E37214" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M17.6599 6.37993L19.0999 4.92993" stroke="#E37214" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</div>
+					<p>Nossos professores especializados iniciam as aulas, trazendo mais vida e energia para o seu ambiente.</p>
+				</div>
+
+				<div class="flex items-center space-x-5 my-5">
+					<div class="flex-shrink bg-white shadow-lg rounded-full p-3 flex items-center justify-center">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="https://www.w3.org/2000/svg">
+							<rect x="4" y="12" width="4" height="8" rx="1" fill="#1485E3"/>
+							<rect x="10" y="8" width="4" height="12" rx="1" fill="#E37214"/>
+							<rect x="16" y="4" width="4" height="16" rx="1" fill="#1485E3"/>
+							<path d="M2 22H22" stroke="#1485E3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</div>
+					<p>Cuidamos das mensalidades e de todo o relacionamento com os pais. Você acompanha os resultados sem se preocupar.</p>
+				</div>
+			</div>
+		</div>
+
+		<!-- lorem -->
+		<div id="sobre" class="mt-28 pt-5">
+			<div data-aos="flip-down" class="text-center max-w-screen-md mx-auto mt-10">
+				<h1 class="text-3xl font-bold mb-4"><span class="text-yellow-500">Gustavo Nogueira Esportes</span></h1>
+				<p class="text-gray-500">Nascemos para oferecer uma experiência completa em esporte e cultura, ajudando no desenvolvimento infantil de forma divertida e segura. </p>
+			</div>
+		</div>
+
+		
+
+		<!-- JUDÔ -->
+		<div class="flex flex-col md:flex-row items-center md:space-x-10 mt-16">
+			<div data-aos="fade-right" class="md:w-1/2 lg:pl-14">
+				<h1 class="text-darken font-semibold text-3xl lg:pr-56"><span class="text-yellow-500">Judô:</span> Respeito e Autocontrole</h1>
+				<p class="text-gray-500 my-4 lg:pr-32">Uma arte marcial que ensina valores fundamentais como respeito, disciplina e coragem, em um ambiente seguro e controlado.</p>
+			</div>
+			<img data-aos="fade-left" class="md:w-1/2 modalidades" src="{% static 'img/land/judo.jpg' %}">
+		</div>
+
+		<!-- BALLET -->
+		<div class="mt-20 flex flex-col-reverse md:flex-row items-center md:space-x-10">
+			<div data-aos="fade-right" class="md:w-6/12">
+				<img class="md:w-10/12 modalidades" src="{% static 'img/land/bale.jpg' %}">
+			</div>
+			<div data-aos="fade-left" class="md:w-6/12 md:transform md:-translate-y-20">
+				<h1 class="font-semibold text-yellow-500 text-3xl lg:pr-64"><span class="text-darken">Balé: </span>Disciplina e Expressão Artística</h1>
+				<p class="text-gray-500 my-5 lg:pr-52">O balé introduz as crianças ao mundo da música e do movimento, trabalhando a postura, a disciplina e a autoconfiança.</p>
+			</div>
+		</div>
+
+		<!-- FUTSAL -->
+		<div class="flex flex-col md:flex-row items-center mt-20">
+			<div data-aos="fade-right" class="md:w-5/12">
+				<h1 class="text-darken font-semibold text-3xl leading-tight lg:pr-32"><span class="text-yellow-500">Futsal:</span> Agilidade e Espírito de Equipe</h1>
+				<p class="my-5 lg:pr-14">Mais que um esporte, o futsal desenvolve a coordenação motora, o raciocínio rápido e a importância de colaborar em time.</p>
+			</div>
+			<img data-aos="fade-left" class="md:w-6/12 modalidades" src="{% static 'img/land/futsal.jpg' %}">
+		</div>
+
+		<!-- XADREZ -->
+		<div class="mt-24 flex flex-col-reverse md:flex-row items-center md:space-x-10 mt-5">
+			<div data-aos="fade-right" class="md:w-6/12">
+				<img class="md:w-11/12 modalidades" src="{% static 'img/land/xadrez.jpg' %}">
+			</div>
+			<div data-aos="fade-left" class="md:w-5/12 md:transform md:-translate-y-6">
+				<h1 class="font-semibold text-darken text-3xl lg:pr-64">Xadrez:<span class="text-yellow-500"> Estratégia e Concentração</span></h1>
+				<p class="text-gray-500 my-5 lg:pr-24">O xadrez é uma ferramenta poderosa para estimular o pensamento lógico, a capacidade de planejamento e o foco das crianças.</p>
+			</div>
+		</div>
+
+		<!-- OUTROS -->
+		<div class="flex flex-col md:flex-row items-center mt-24">
+			<div data-aos="fade-right" class="md:w-5/12">
+				<h1 class="text-darken font-semibold text-3xl leading-tight lg:pr-32"><span class="text-yellow-500">Sempre em </span>expansão</h1>
+				<p class="my-5 lg:pr-14">Além das modalidades que já oferecemos, estamos sempre abertos a expandir nosso repertório e incluir novas práticas que agreguem ainda mais ao aprendizado e bem-estar das crianças.</p>
+			</div>
+			<img data-aos="fade-left" class="md:w-6/12 modalidades" src="{% static 'img/land/outros.jpg' %}">
+		</div>
+	</div>
+
+
+	<footer class="mt-32" style="background-color: rgba(37, 38, 65, 1);">
+		<div class="max-w-lg mx-auto">
+			
+			<div class="flex py-12 justify-center text-gray-400 text-sm">
+		
+				<img class="logo_footer" src="{% static 'img/land/gne_logo_clara.png' %}" alt="GNE">
+				<span class="border-l border-gray-500 text-sm pl-5 py-2 font-semibold">Praticidade e <br>Desenvolvimento</span>
+			</div>
+
+			<!--<div class="text-center pb-16">
+				<label class="text-gray-300 font-semibold">Entre em contato pelo WhatsApp<br>(62)99181-6609</label>
+				<div class="px-5 sm:px-0 flex flex-col sm:flex-row sm:space-x-3 space-y-3 sm:space-y-0 justify-center mt-3">
+					<button type="submit" class="text-white w-40 sm:w-auto mx-auto sm:mx-0 font-semibold px-5 py-2 rounded-full" style="background: linear-gradient(105.5deg, #545AE7 19.57%, #393FCF 78.85%);">WhatsApp</button>
+				</div>
+			</div>-->
+
+			<div class="flex items-center text-gray-400 text-sm justify-center">
+				<a href="https://wa.me/556291816609?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20a%20parceria%20da%20Gustavo%20Nogueira%20Esportes." target="_blank" rel="noopener noreferrer" class="pr-3">
+				WhatsApp
+			</a>
+				<a href="" class="border-l border-gray-400 px-3">Parceiros</a>
+				<a href="" class="border-l border-gray-400 pl-3">Instagram</a>
+			</div>
+
+			<div class="text-center text-white">
+				<p class="my-3 text-gray-400 text-sm">&copy; 2025 Gustavo Nogueira Esportes</p>
+				<div class="py-3 tracking-wide">
+					<p>Site por <span class="font-semibold">Apesys</span></p>
+				</div>
+			</div>
+
+		</div>
+	</footer>
+
+	<!-- AOS init -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+    	AOS.init();
+    </script>
+</body>
+</html>

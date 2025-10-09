@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copiar Textos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .texto {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s;
+        }
+        .texto:hover {
+            background-color: #e6e6e6;
+        }
+    </style>
+    <script>
+        function copiarTexto(texto) {
+            navigator.clipboard.writeText(texto).then(() => {
+                alert(`Texto copiado: "${texto}"`);
+            }).catch(err => {
+                alert("Erro ao copiar texto!");
+                console.error(err);
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Textos para Copiar</h1>
+    {% for texto in textos %}
+        <div class="texto" onclick="copiarTexto('{{ texto }}')">
+            {{ texto }}
+        </div>
+    {% endfor %}
+</body>
+</html>
